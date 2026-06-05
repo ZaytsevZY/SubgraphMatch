@@ -14,3 +14,11 @@ class ExperimentConfig:
     paths: ExperimentPaths = field(default_factory=ExperimentPaths)
     enable_filters: bool = True
     max_results: int | None = None
+
+
+@dataclass
+class GUPConfig:
+    """Configuration for the first course-project GUP implementation."""
+
+    enable_reservation_guard: bool = True
+    enable_nogood_guard: bool = True
