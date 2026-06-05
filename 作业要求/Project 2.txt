@@ -1,0 +1,181 @@
+《现代数据库系统概论》期末大作业
+王崧尧∗
+汇报日期：2026 年 6 月 11 日（Week 16） 截止日期：2026 年 6 月 13 日
+1 导言
+作业以小组形式完成，每组最多 4 人。各位同学需从三个选题方向中选择一个方向完成作
+业，每个选题方向最多允许 3 个小组参与，按报名链接1填写顺序先到先得，以保证各方向组数
+均衡。
+每个选题包含必做部分和选做部分（括号标注）。必做部分共 70 分；选做部分同学可根据
+兴趣自由选择，不作强制要求，单项上限均为 30 分（依完成质量评定），多项均可完成，总分
+以 100 分为上限。注意：大作业的得分还会参考线下汇报过程中问答的表现。
+请仔细阅读 Section 2 至 Section 4 中的具体选题内容，明确任务和实验要求后，再完成组
+队并选题。
+2 选题 1：社区发现与社区搜索
+本选题聚焦于社区发现（Community Detection）和社区搜索（Community Search）
+问题，旨在识别图结构中紧密关联的节点群体。社区结构广泛存在于社交网络、学术引用网络、
+在线交易网络、交通网络等实际场景中，有助于研究人员理解群体行为、信息传播模式及关键
+节点影响力。例如，社交平台可利用社区发现算法识别兴趣群体并推荐相关内容；科研人员可
+通过在合作网络中执行社区搜索，识别学术合作集群，从而优化资源分配与合作策略。
+请同学们完成如下任务：
+1. [20 分] 独立调研社区发现与社区搜索领域的文献，构建多维度的科学分类体系。
+2. [20 分] 从给定的 11 篇论文 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] 中选择 1 篇进行算法复现。
+3. [15 分] 自行选择论文中的 3–4 组数据集运行实验，统计社区发现或社区搜索的运行时间
+及社区质量等关键指标（社区质量衡量指标可自行选择）。
+4. [15 分] 使用经典社区发现或社区搜索算法（如 Louvain [12]）在相同数据集上运行实验，
+汇报运行时间及社区质量指标，并与复现算法进行对比分析。
+5.（选做）思考图结构随时间演化（节点和边的插入与删除）时社区结构的变化，提出相应方
+法，并尝试在动态图中发现高质量社区结构。
+∗
+wangsong23@mails.tsinghua.edu.cn
+1
+https://docs.qq.com/sheet/DU0tvbWNmeXFmdm9U?tab=BB08J2
+1
+3 选题 2：子图匹配 2
+3 选题 2：子图匹配
+子图匹配问题定义如下：给定数据图 G = (VG, EG, ℓG) 和查询图 Q = (VQ, EQ, ℓQ)，其中
+VG, VQ 为顶点集合，EG, EQ 为边集合，ℓG, ℓQ 为顶点标签函数。子图匹配要求找到一个单射
+f : VQ → VG，满足 ∀v ∈ VQ, ℓQ(v) = ℓG(f(v)) 且 ∀(u, v) ∈ EQ, (f(u), f(v)) ∈ EG，即查询图
+在数据图中存在结构和标签完全匹配的子图。
+在实际应用中，子图匹配广泛用于社交网络分析、金融交易异常检测、知识图谱查询及生
+物网络分析等场景。在图数据库管理系统中，子图匹配是复杂图查询处理的核心，匹配算法的
+效率直接影响数据库的查询性能。
+请同学们完成如下任务：
+1. [15 分] 独立调研子图匹配领域的文献，构建多维度的科学分类体系。
+2. [20 分] 从给定的论文集合 [13, 14, 15, 16, 17] 中选择 1 篇进行复现。
+3. [20 分] 自行选择论文中的 3–4 组数据集运行实验，统计：运行时间、最终 result mapping
+数量、产生的 partial mapping 数量，以及论文所提过滤策略过滤掉的 partial mapping 数
+量。
+4. [15 分] 依次关闭论文中提到的各过滤策略，分别统计运行时间和 partial mapping 数量，
+分析各策略的贡献。
+5.（选做）思考子图匹配结果的可复用性，探讨后续查询能否利用先前查询的结果，并基于此
+设计优化算法。
+6.（选做）图结构变化时（插入或删除一条边），设计算法动态维护 result mapping，找出因
+该变化导致的结果差异。
+7.（选做）子图同态算法的设计与实现。本作业中，子图同态定义如下：
+给定数据图 G = (VG, EG, ℓG) 和查询图 Q = (VQ, EQ, ℓQ)，子图同态要求找到一个映射
+f : VQ → VG
+满足以下条件：
+(a) 标签约束：∀v ∈ VQ, ℓQ(v) = ℓG(f(v))；
+(b) 边约束：∀(u, v) ∈ EQ，有 (f(u), f(v)) ∈ EG
++，其中 EG
++ = EG ∪ {(w, w) | w ∈ VG}；
+(c) 映射可重用性：f 不要求为单射，即允许多个查询顶点映射到同一数据顶点。
+此定义在保持顶点标签一致性和边结构约束的同时，允许多个查询顶点映射到同一数据顶
+点；当多个查询顶点折叠至同一数据顶点时，其关联边映射为自环，由 EG
++ 统一处理，不
+产生冲突。
+4 选题 3：向量数据管理 3
+4 选题 3：向量数据管理
+近似最近邻索引（Approximate Nearest Neighbor Index, ANN Index）是一类用于高维向
+量空间中快速检索最相似对象的数据结构与算法。它通过牺牲少量精度换取大幅提升的查询速
+度，广泛应用于推荐系统、图像/文本检索、语义搜索、知识库问答及生物信息比对等场景。在
+处理大规模高维数据时，ANN 索引能够显著提升查询吞吐量，是现代人工智能与大数据系统中
+不可或缺的基础组件。
+请同学们完成如下任务：
+1. [15 分] 独立调研 ANN Index 领域的文献，构建多维度的科学分类体系。
+2. [25 分] 复现 DiskANN [18]。
+3. [15 分] 选择 3–4 个数据集运行实验，统计 KNN 查询的吞吐量（QPS）和召回率；并在
+不同召回率约束下（如 90%、95%、99%），分别汇报对应的 QPS。
+4. [10 分] 使用 HNSW [19] 在相同数据集上运行实验，统计吞吐量和召回率，并与 DiskANN
+进行对比。
+5. [5 分] 对比 HNSW 与 DiskANN 搜索过程中访问邻居的次数，并结合实验结果解释一下，
+DiskANN 提出 Vamana Graph 的动机。
+6.（选做） HNSW 支持向量的插入与删除，思考如何为 DiskANN 添加相同支持，设计实验
+测试插入和删除操作的吞吐量。
+7.（选做）给定向量集合 V = {v1, v2, . . . , vn} 和阈值 ε > 0，找到所有满足 dist(vi
+, vj ) < ε 的
+向量对 (vi
+, vj )；思考在数据规模超出内存容量时的高性能实现方式。
+5 提交要求
+1. 实验报告：使用指定 LATEX 模板 [20] 撰写英文报告，须包含以下内容（建议每条对应一
+个 Section）：
+(a) 选题背景简介；
+(b) 文献调研报告；
+(c) 复现论文的算法思路；
+(d) 实验结果与分析；
+(e) 选做项（若完成）：思路、算法实现及实验结果；
+(f) 总结，包括选题发展历史及个人心得；
+(g) 组内分工说明。
+严禁使用 AI 生成图片；引用外部图片须标注来源；自制图片推荐使用 PPT 或其他矢量
+绘图工具（如 draw.io）绘制，并提交对应源文件；实验结果图须附带绘图源代码（Python、
+GnuPlot 等）。
+参考文献 4
+鼓励同学们在报告中说明必做以外的任何加分项。同学亦可自行设计创意加分项，本文所
+列选做仅为获取加分的途径之一；完成后请在报告中写清楚加分项的思路、算法实现及实
+验结果。
+2. 源代码：附带所用数据集；数据集过大可上传至云盘，并在报告中提供下载链接。代码须
+写清楚复现步骤。
+3. 汇报 PPT：每组 5–7 分钟汇报，3–5 分钟提问，总时长不超过 10 分钟。
+4. 关于 AI 使用：严禁使用任何 AI 工具直接生成实现代码。如使用 AI 编程辅助工具（如
+Claude Code、GitHub Copilot、Cursor 等），须提供完整的 Prompt 或对话记录。
+参考文献
+[1] A. Mahmood and M. Small, “Subspace based network community detection using sparse
+linear coding,” in 2016 IEEE 32nd International Conference on Data Engineering (ICDE),
+2016, pp. 1502–1503.
+[2] A. Epasto, S. Lattanzi, V. Mirrokni, I. O. Sebe, A. Taei, and S. Verma, “Ego-net
+community mining applied to friend suggestion,” Proc. VLDB Endow., vol. 9, no. 4, p.
+324–335, Dec. 2015. [Online]. Available: https://doi.org/10.14778/2856318.2856327
+[3] S. Lim, J. Kim, and J.-G. Lee, “Blackhole: Robust community detection inspired by graph
+drawing,” in 2016 IEEE 32nd International Conference on Data Engineering (ICDE), 2016,
+pp. 25–36.
+[4] J. Kim, S. Lim, J.-G. Lee, and B. Lee, “Linkblackhole∗*: Robust overlapping community
+detection using link embedding,” IEEE Transactions on Knowledge and Data Engineering,
+vol. 31, no. 11, pp. 2138–2150, 2019.
+[5] H. Van Lierde, T. W. S. Chow, and G. Chen, “Scalable spectral clustering for overlapping
+community detection in large-scale networks,” IEEE Transactions on Knowledge and Data
+Engineering, vol. 32, no. 4, pp. 754–767, 2020.
+[6] Y. Fang, Y. Yang, W. Zhang, X. Lin, and X. Cao, “Effective and efficient community
+search over large heterogeneous information networks,” Proc. VLDB Endow., vol. 13, no. 6,
+p. 854–867, Feb. 2020. [Online]. Available: https://doi.org/10.14778/3380750.3380756
+[7] Q. Liu, M. Zhao, X. Huang, J. Xu, and Y. Gao, “Truss-based community search
+over large directed graphs,” in Proceedings of the 2020 ACM SIGMOD International
+Conference on Management of Data, ser. SIGMOD ’20. New York, NY, USA:
+Association for Computing Machinery, 2020, p. 2183–2197. [Online]. Available:
+https://doi.org/10.1145/3318464.3380587
+参考文献 5
+[8] J. Luo, X. Cao, X. Xie, Q. Qu, Z. Xu, and C. S. Jensen, “Efficient attribute-constrained
+co-located community search,” in 2020 IEEE 36th International Conference on Data En￾gineering (ICDE), 2020, pp. 1201–1212.
+[9] Q. Liu, Y. Zhu, M. Zhao, X. Huang, J. Xu, and Y. Gao, “Vac: Vertex-centric attributed
+community search,” in 2020 IEEE 36th International Conference on Data Engineering
+(ICDE), 2020, pp. 937–948.
+[10] R.-H. Li, J. Su, L. Qin, J. X. Yu, and Q. Dai, “Persistent community search in temporal
+networks,” in 2018 IEEE 34th International Conference on Data Engineering (ICDE),
+2018, pp. 797–808.
+[11] Z. Dong, X. Huang, G. Yuan, H. Zhu, and H. Xiong, “Butterfly-core community search
+over labeled graphs,” Proc. VLDB Endow., vol. 14, no. 11, p. 2006–2018, Jul. 2021.
+[Online]. Available: https://doi.org/10.14778/3476249.3476258
+[12] V. D. Blondel, J.-L. Guillaume, R. Lambiotte, and E. Lefebvre, “Fast unfolding
+of communities in large networks,” Journal of Statistical Mechanics: Theory
+and Experiment, vol. 2008, no. 10, p. P10008, oct 2008. [Online]. Available:
+https://dx.doi.org/10.1088/1742-5468/2008/10/P10008
+[13] M. Han, H. Kim, G. Gu, K. Park, and W.-S. Han, “Efficient subgraph matching:
+Harmonizing dynamic programming, adaptive matching order, and failing set together,” in
+Proceedings of the 2019 International Conference on Management of Data, ser. SIGMOD
+’19. New York, NY, USA: Association for Computing Machinery, 2019, p. 1429–1446.
+[Online]. Available: https://doi.org/10.1145/3299869.3319880
+[14] J. Arai, Y. Fujiwara, and M. Onizuka, “Gup: Fast subgraph matching by guard-based
+pruning,” Proc. ACM Manag. Data, vol. 1, no. 2, Jun. 2023. [Online]. Available:
+https://doi.org/10.1145/3589312
+[15] Z. Zhang and W. Zheng, “Bee: Towards redundancy reduction via block-separator
+decomposition for subgraph matching,” Proc. ACM Manag. Data, vol. 3, no. 4, Sep. 2025.
+[Online]. Available: https://doi.org/10.1145/3749159
+[16] B. Bhattarai, H. Liu, and H. H. Huang, “Ceci: Compact embedding cluster
+index for scalable subgraph matching,” in Proceedings of the 2019 International
+Conference on Management of Data, ser. SIGMOD ’19. New York, NY, USA:
+Association for Computing Machinery, 2019, p. 1447–1462. [Online]. Available:
+https://doi.org/10.1145/3299869.3300086
+[17] V. Carletti, P. Foggia, A. Saggese, and M. Vento, “Challenging the time complexity of
+exact subgraph isomorphism for huge and dense graphs with vf3,” IEEE Transactions on
+Pattern Analysis and Machine Intelligence, vol. 40, no. 4, pp. 804–818, 2018.
+参考文献 6
+[18] S. Jayaram Subramanya, F. Devvrit, H. V. Simhadri, R. Krishnawamy, and R. Kadekodi,
+“Diskann: Fast accurate billion-point nearest neighbor search on a single node,”
+in Advances in Neural Information Processing Systems, H. Wallach, H. Larochelle,
+A. Beygelzimer, F. d'Alché-Buc, E. Fox, and R. Garnett, Eds., vol. 32. Curran
+Associates, Inc., 2019. [Online]. Available: https://proceedings.neurips.cc/paper_files/
+paper/2019/file/09853c7fb1d3f8ee67a61b6bf4a7f8e6-Paper.pdf
+[19] Y. A. Malkov and D. A. Yashunin, “Efficient and robust approximate nearest neighbor
+search using hierarchical navigable small world graphs,” 2018. [Online]. Available:
+https://arxiv.org/abs/1603.09320
+[20] Overleaf, “Acm journals primary article template,” https://www.overleaf.com/latex/
+templates/acm-journals-primary-article-template/cpkjqttwbshg, accessed: 2026-05-14.
