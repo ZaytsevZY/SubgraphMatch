@@ -1,0 +1,6 @@
+# Query path A-B-A that appears twice in the toy data graph.
+v 1 A
+v 2 B
+v 3 A
+e 1 2
+e 2 3

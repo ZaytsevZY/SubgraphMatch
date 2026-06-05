@@ -1,0 +1,9 @@
+# Toy graph for parser and matcher debugging
+v 1 A
+v 2 B
+v 3 A
+v 4 C
+e 1 2
+e 2 3
+e 3 4
+e 1 3

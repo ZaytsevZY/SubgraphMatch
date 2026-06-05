@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+.env
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated outputs
+outputs/logs/*
+!outputs/logs/.gitkeep
+outputs/tables/*
+!outputs/tables/.gitkeep
+outputs/tmp/*
+!outputs/tmp/.gitkeep
+results/raw/*
+!results/raw/.gitkeep
+results/tables/*
+!results/tables/.gitkeep
+results/figures/*
+!results/figures/.gitkeep
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
