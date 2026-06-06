@@ -105,3 +105,41 @@
 1. `Yeast / Human`：继续作为主结果数据集，完成完整对比与消融
 2. `WordNet / Patents`：先作为 timeboxed smoke 或边界实验写入报告
 3. 若想在 `WordNet / Patents` 上拿到非 timeout 结果，需要进一步降低 workload，或提升实现性能
+
+## 6. 2026-06-07 改进后的最新观察
+
+在将候选过滤升级为 `label + degree`，并把 `reservation_guard` 从运行时前向检查改为“小型预计算 reservation set”之后，结果出现了更积极的变化。
+
+### 6.1 Human / query_dense_4_1
+- baseline: `partial_mappings = 11013`, `runtime_ms ≈ 191.82`
+- reservation_only: `10916`, `≈ 172.20`
+- full GUP: `10916`, `≈ 204.48`
+
+当前解释：
+- `reservation_guard` 仍然将 `partial_mappings` 降低了 `97`
+- 更重要的是，`reservation_only` 的运行时间已经接近并略优于 baseline
+- `nogood_guard` 依旧没有体现收益，并会拉高整体时间
+
+### 6.2 Yeast / query_dense_4_10
+- baseline: `partial_mappings = 22624`, `runtime_ms ≈ 805.71`
+- reservation_only: `22283`, `≈ 741.69`
+- full GUP: `22283`, `≈ 770.27`
+
+当前解释：
+- `reservation_guard` 将 `partial_mappings` 降低了 `341`
+- 这一次 `reservation_only` 与 `full GUP` 都已经在 wall-clock time 上优于 baseline
+- 说明当前改进后的 `reservation_guard` 已经开始真正体现论文路线的效果
+
+### 6.3 当前最新判断
+
+最新结果比上一轮更乐观：
+
+- 之前的结论是“只在搜索空间上略好，但时间还没打赢 baseline”
+- 现在的结论应改为：
+
+> 改进后的 `reservation_guard` 已经在部分真实查询上同时减少搜索空间，并开始在运行时间上优于 baseline。
+
+但仍需保留两个限定：
+
+1. 当前收益仍然主要来自 `reservation_guard`
+2. `nogood_guard` 在真实数据上依旧保守，尚未带来稳定增益

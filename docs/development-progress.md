@@ -63,6 +63,8 @@
 - 已补 `human dense-4` 的完整 ablation 对比
 - 已新增报告式结果表：`results/tables/gup_real_ablation_report_table.csv`
 - 已新增当前结果摘要：`docs/current-results-summary.md`
+- 已将 `reservation_guard` 升级为预计算小型 reservation set 版本
+- 改进后在 `yeast/human` 的部分真实 query 上开始同时降低搜索空间和运行时间
 
 ## 当前进行中
 - 规划 `GUP` 的 guard 如何映射到当前 matcher 结构
@@ -137,6 +139,7 @@
 - 新增跨数据集 smoke 汇总：`results/tables/real-dense4-cross-summary.csv`
 - 新增人类可读结果摘要：`docs/current-results-summary.md`
 - 新增报告式对比表：`results/tables/gup_real_ablation_report_table.csv`
+- 新增改进后结果表：`results/tables/hall-human-d4-summary.csv`、`results/tables/hall-yeast-d4-summary.csv`
 
 ## 建议下一步
 1. 按 `configs/gup_real_workloads.yaml` 对 4 组 workload 分别做小规模 smoke run。

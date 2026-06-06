@@ -232,6 +232,8 @@
 - 已新增 `configs/gup_real_workloads.yaml` 作为当前课程项目的真实 workload 清单
 - 已为真实实验脚本增加 `timeout_sec` 支持，可将过重 query 记录为 `timeout` 而不是无界运行
 - 已完成一轮跨数据集 dense-4 smoke，用于识别当前 Python 原型的可跑性边界
+- 已将 `reservation_guard` 从运行时前向检查改为预计算 reservation set 的课程版近似实现
+- 改进后在 `yeast/human` 的部分真实 query 上开始体现更接近论文方向的收益
 
 ### Phase D: 正式实验与报告素材
 目标：生成报告可直接引用的表格、图和结论草稿。

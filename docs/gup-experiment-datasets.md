@@ -64,16 +64,16 @@ GUP 论文实验使用 4 个数据图：
 
 ## 4. 当前推荐的数据集方案
 
-### 4.0 已下载数据的实际情况
+### 4.0 已验证数据包的实际情况
 
-当前已经下载并解压的 `dataset.zip` 来自 `SubgraphMatching` 仓库提供的真实数据入口。
+当前课程项目所使用的 `dataset.zip` 来自 `SubgraphMatching` 仓库提供的真实数据入口。下面的内容是基于该数据包结构做过检查后的结论，供新用户下载后对照使用。
 
 与 GUP 论文正文相比，这包数据有两个重要区别：
 
 1. 数据文件格式是 `.graph`，不是 GuP 官方仓库的 `.vertices/.edges + YAML`
 2. query 集并不是论文中精确描述的 `32` 个 query sets，而是每个数据集自带 `1800` 个单独的 query `.graph` 文件
 
-当前已确认下载包中包含的 8 个数据集是：
+当前已确认该数据包中包含的 8 个数据集是：
 
 - `yeast`
 - `human`
@@ -91,7 +91,7 @@ GUP 论文实验使用 4 个数据图：
 - `wordnet`
 - `patents`
 
-每个已下载数据集当前都包含：
+每个目标数据集通常都包含：
 
 - `1` 个数据图 `.graph`
 - `1800` 个 query `.graph`
@@ -119,7 +119,7 @@ GUP 论文实验使用 4 个数据图：
 - 相比 `8/16` 顶点 query，`24` 顶点更容易体现 guard 的收益
 
 #### `Human-20S`
-- 当前已下载数据包中，`human` 的 sparse query 最大只到 `20`
+- 当前已检查的数据包中，`human` 的 sparse query 最大只到 `20`
 - 它是最接近论文中 `24S of Human` 的可用替代组
 - 适合在报告里解释为“课程版复现实验采用下载包中最接近论文难度的可用组”
 
@@ -153,31 +153,39 @@ GUP 论文实验使用 4 个数据图：
 - Sun 等人的 SubgraphMatching 仓库 README 给出了真实数据集与 query sets 的下载入口
 - 该入口会跳转到 SharePoint 上的 `dataset.zip`
 
-### 6.2 当前本地放置情况
+### 6.2 推荐本地放置位置
 
-当前数据已解压到：
+新用户拉取仓库后，请按以下方式手动放置数据：
 
-- `data/raw/gup-paper/extracted/dataset/`
+- 下载链接文件：`data/raw/gup-paper/数据集链接`
+- 压缩包路径：`data/raw/gup-paper/dataset.zip`
+- 解压目录：`data/raw/gup-paper/extracted/dataset/`
 
-其中每个数据集目录下包含：
+解压完成后，每个数据集目录下通常包含：
 
 - `data_graph/<dataset>.graph`
 - `query_graph/query_*.graph`
 
-## 7. 当前需要你手动完成的动作
+## 7. 新用户需要手动完成的动作
 
-这一步已经完成：
+请新用户首次接入项目时手动完成以下步骤：
 
-- `dataset.zip` 已放入 `data/raw/gup-paper/`
-- 数据已解压到 `data/raw/gup-paper/extracted/dataset/`
+1. 打开 `data/raw/gup-paper/数据集链接`
+2. 根据其中的链接下载 `dataset.zip`
+3. 将压缩包保存到 `data/raw/gup-paper/dataset.zip`
+4. 将压缩包解压到 `data/raw/gup-paper/extracted/dataset/`
 
-当前不再需要额外人工下载。
+补充说明：
+
+- 数据集本体不会完整提交到 Git 仓库中
+- 如果只想验证代码流程，可先使用 `data/sample/` 下的 toy 数据
+- 如果要运行真实数据实验，则必须先完成上述下载与解压
 
 ## 8. 与当前仓库代码的差距
 
 这是现在最关键的工程差距：
 
-- 已下载真实数据格式是：`.graph`
+- 真实数据下载包的主要格式是：`.graph`
 - GUP 官方仓库样例格式是：`.vertices` + `.edges` + YAML query set
 - 当前仓库现在已经同时支持：
   - toy `v/e` 文本格式
@@ -199,7 +207,7 @@ GUP 论文实验使用 4 个数据图：
 
 ## 9.1 当前 smoke 结果
 
-基于真实下载数据，我们已经完成一轮跨数据集 smoke：
+基于已下载并检查过的真实数据，我们已经完成一轮跨数据集 smoke：
 
 - `Yeast / query_dense_4_23`：成功
 - `Human / query_dense_4_1`：成功
@@ -223,7 +231,7 @@ GUP 论文实验使用 4 个数据图：
 到目前为止，数据集层面的情况已经明确：
 
 - 论文完整实验：`Yeast / Human / WordNet / Patents` + `32` 个 query sets
-- 已下载数据包：包含上述 4 个目标数据集，且每个数据集带 `1800` 个 `.graph` 查询文件
+- 已验证的数据包：包含上述 4 个目标数据集，且每个数据集带 `1800` 个 `.graph` 查询文件
 - 课程项目主方案：`Yeast-24S / Human-20S / WordNet-16D / Patents-8S`
 - 课程项目保守方案：`Yeast-16S / Human-16S / WordNet-12S / Patents-8S`
-- 下一步真正的重点已不再是“下载数据”，而是“选定 query 文件集合并开始真实批量实验”
+- 对仓库维护者来说，下一步重点是“选定 query 文件集合并开始真实批量实验”；对新用户来说，第一步仍然是先手动准备数据集

@@ -22,13 +22,17 @@ class GUPMatcher:
         self.config = config or GUPConfig()
         self.guards: List[SearchGuard] = []
         if self.config.enable_reservation_guard:
-            self.guards.append(ReservationGuard())
+            self.guards.append(ReservationGuard(size_limit=self.config.reservation_size))
         if self.config.enable_nogood_guard:
             self.guards.append(NogoodGuard())
 
     def match(self, query_graph: LabeledGraph, data_graph: LabeledGraph) -> MatchResult:
         candidates = build_label_candidates(query_graph, data_graph)
         vertex_order = compute_matching_order(query_graph, candidates)
+        for guard in self.guards:
+            prepare = getattr(guard, 'prepare', None)
+            if callable(prepare):
+                prepare(query_graph, data_graph, candidates, vertex_order)
         statistics = MatchStatistics(vertex_order=list(vertex_order))
         results: List[Dict[int, int]] = []
         state = SearchState()

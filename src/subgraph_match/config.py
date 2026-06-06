@@ -22,3 +22,4 @@ class GUPConfig:
 
     enable_reservation_guard: bool = True
     enable_nogood_guard: bool = True
+    reservation_size: int = 3
