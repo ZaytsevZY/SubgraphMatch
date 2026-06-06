@@ -23,6 +23,11 @@ results/tables/*
 results/figures/*
 !results/figures/.gitkeep
 
+# Local datasets
+data/raw/gup-paper/*
+!data/raw/gup-paper/.gitkeep
+!data/raw/gup-paper/README.md
+
 # OS / IDE
 .DS_Store
 .vscode/

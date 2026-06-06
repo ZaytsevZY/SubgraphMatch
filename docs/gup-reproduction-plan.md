@@ -10,7 +10,8 @@
 
 当前补充背景：
 - 已完成一轮论文代码可得性调查。
-- 当前未发现 `GUP` 的明确公开仓库，因此本规划默认按“自己实现课程版 `GUP-lite`”推进。
+- 已确认 `GUP` 存在公开 Rust 实现，可作为论文细节和输入输出行为的参考。
+- 当前项目仍按“自己实现课程版 `GUP-lite`”推进，而不是直接依赖官方仓库。
 - `VF3` 存在官方源码申请入口，可作为备选切换方案，但当前不改变主线。
 
 ## 2. 复现目标
@@ -41,8 +42,14 @@
 - 已完成候选论文比较与评分
 - 已完成 `GUP` 和 `VF3` 的代码可得性调查
 - 已确认当前 baseline、接口规范、指标定义和基础测试可直接复用
+- 已有 `gup_matcher.py`、`reservation_guard.py`、`nogood_guard.py` 的第一版实现
 - 已开始设计 `GUP-lite` 需要的 guard 接口、matcher 骨架和统计字段
 - 当前仍缺少 `GUP` 原文实验部分的完整数据集与查询配置整理
+
+## 3.1 现阶段总原则
+- 第一目标不是“逐字还原官方 Rust 代码”，而是做出一个正确、可测、可解释、可消融的课程版 `GUP-lite`。
+- 当前仓库中的 guard 实现先视为“第一版近似实现”，后续要逐项验证其与论文定义的贴合程度。
+- 任何新增优化都不能破坏现有四个核心指标的统计口径。
 
 ## 4. 论文方法拆分
 为了降低实现风险，建议把 GUP 拆成以下模块。
@@ -141,6 +148,9 @@
 - 跑通 end-to-end
 - 输出与 baseline 可比较的统计结果
 
+当前状态：
+- 该步骤已经有雏形代码，但还缺正确性回归测试、配置测试和 guard 行为解释文档。
+
 ### 第 5 步：加入消融配置
 - baseline
 - `+reservation`
@@ -151,6 +161,85 @@
 - 选 `3-4` 组数据集和查询集
 - 固定输出表结构
 - 批量运行并落盘
+
+## 6.1 2026-06-07 之后的分阶段路线
+
+### Phase A: 收口第一版正确性
+目标：让 `GUP-lite` 在 toy graph 上稳定跑通，并能与 baseline 对齐最终匹配结果。
+
+本阶段必须完成：
+- 为 `GUPMatcher` 补 `unittest`
+- 验证 guard 开启后 `result mappings` 不变
+- 验证至少一个 toy case 上 `pruned_partial_mappings` 高于 baseline
+- 明确当前 `reservation_guard` 和 `nogood_guard` 分别近似论文中的哪一部分
+
+交付物：
+- `tests/test_gup_matcher.py`
+- guard 行为说明补充到文档
+
+当前状态：
+- 已新增 `tests/test_gup_matcher.py`
+- 已验证：关闭 guard 时，`GUPMatcher` 与 baseline 的结果和核心统计一致
+- 已验证：开启全部 guard 时，toy path 样例上的 `result mappings` 不变
+- 已验证：`reservation_guard` 在一个构造的 dead-end 三角查询上能比 baseline 更早剪枝
+- 已验证：`nogood_guard` 已从“精确前缀 memo”升级为“未来子问题 memo”，并能在一个断开组件样例上复用 dead-end
+- 在当前构造样例上，`nogood_guard` 将 `partial_mappings` 从 `19` 降到 `12`，并产生 `3` 次明确的 `nogood_guard` 命中
+- 当前仍需注意：在 toy 级别样例上，搜索空间下降不一定立刻带来更低的 `runtime_ms`，因为 guard 检查本身也有开销
+
+### Phase B: 固定课程实验版接口
+目标：让 GUP 的不同 guard 能以统一配置开关运行，并把统计结果结构化落盘。
+
+本阶段必须完成：
+- `GUPConfig` 增加更细的 guard 开关
+- `MatchStatistics` 明确区分不同 guard 的命中次数
+- 单次实验结果输出为 JSON/CSV 可落盘结构
+
+交付物：
+- `scripts/run_gup_experiment.py`
+- `results/raw/` 下的样例结果文件
+
+当前状态：
+- 已新增 `scripts/run_gup_experiment.py`
+- 已支持 `baseline` / `gup` 两类单次运行
+- 已支持 `reservation guard` / `nogood guard` 开关配置
+- 已支持将单次运行结果写入 `results/raw/*.json`
+- 已新增 `scripts/run_gup_batch.py`，支持标准消融配置的批量运行
+- 已新增 `scripts/summarize_results.py`，可将 `results/raw/*.json` 汇总为 `results/tables/summary.csv`
+- 已支持使用 `run_tag` 区分不同批次实验，并按 `glob-pattern` 定向生成单批次汇总表
+- 当前下一步是把 toy 示例切换为正式数据集与查询集
+
+### Phase C: 还原论文实验设置
+目标：确定 3-4 组正式实验数据，并把查询规模、超时阈值、对比基线写入文档。
+
+本阶段必须完成：
+- 补完 `GUP` 原文实验部分摘要
+- 固定课程报告里实际使用的数据集和查询集
+- 设计 guard 消融矩阵
+
+交付物：
+- 数据集清单文档
+- 消融矩阵表
+
+当前状态：
+- 已新增 `docs/gup-experiment-datasets.md`
+- 已正式明确课程主方案为 `Yeast-24S / Human-24S / WordNet-16D / Patents-8S`
+- 已明确正式数据下载需要人工完成一次
+- 已新增官方 GUP 输入格式读取器
+- 已让 `scripts/run_gup_experiment.py` 支持 `.vertices/.edges` + YAML query set + `query_index`
+- 当前还未把正式 query set 的“逐条批量运行”接到 `run_gup_batch.py`
+- 已新增 `.graph` 读取器
+- 已新增 `scripts/run_query_set_batch.py`，可按 `query_glob` 批量运行真实 `.graph` 查询文件
+- 已新增 `configs/gup_real_workloads.yaml` 作为当前课程项目的真实 workload 清单
+- 已为真实实验脚本增加 `timeout_sec` 支持，可将过重 query 记录为 `timeout` 而不是无界运行
+- 已完成一轮跨数据集 dense-4 smoke，用于识别当前 Python 原型的可跑性边界
+
+### Phase D: 正式实验与报告素材
+目标：生成报告可直接引用的表格、图和结论草稿。
+
+本阶段必须完成：
+- 批量运行 baseline / reservation / nogood / full GUP-lite
+- 汇总 runtime、result mappings、partial mappings、pruned partial mappings
+- 输出报告图表草稿
 
 ## 7. 测试策略
 建议测试分三层：
@@ -223,6 +312,23 @@
 - 新建 `gup_matcher.py`
 - 补一组最小测试用例
 
+## 10.1 当前最近三天的具体任务
+
+### 2026-06-07
+- 正式锁定 `GUP`
+- 收口文档中的“待确认”状态
+- 盘点现有 `GUP-lite` 雏形代码与缺口
+
+### 2026-06-08
+- 补 `GUPMatcher` 单元测试
+- 校验 guard 启用 / 关闭时的结果一致性
+- 补最小实验脚本
+
+### 2026-06-09
+- 整理论文实验设置
+- 固定正式数据集与消融矩阵
+- 开始首轮真实实验
+
 ## 11. 当前结论
 当前项目已经完成“论文选择”阶段，正式进入 `GUP` 复现阶段。
 
@@ -233,5 +339,5 @@
 - 先做 `GUP-lite`，再贴近论文完整版
 
 同时需要保持一个现实判断：
-- 当前 `GUP` 的实现路径以“自主实现”为主，而不是“下载现成代码”
+- 当前 `GUP` 的实现路径以“自主实现”为主，而不是“直接复用官方 Rust 代码”
 - 若后续实现风险显著升高，`VF3` 是最可行的源码型备选

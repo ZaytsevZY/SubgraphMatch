@@ -1,0 +1,31 @@
+- workload_name: yeast_24s
+  dataset_name: yeast
+  input_format: graph
+  data_file: data/raw/gup-paper/extracted/dataset/yeast/data_graph/yeast.graph
+  query_dir: data/raw/gup-paper/extracted/dataset/yeast/query_graph
+  query_glob: query_sparse_24_*.graph
+  recommended_smoke_limit: 10
+
+- workload_name: human_20s
+  dataset_name: human
+  input_format: graph
+  data_file: data/raw/gup-paper/extracted/dataset/human/data_graph/human.graph
+  query_dir: data/raw/gup-paper/extracted/dataset/human/query_graph
+  query_glob: query_sparse_20_*.graph
+  recommended_smoke_limit: 10
+
+- workload_name: wordnet_16d
+  dataset_name: wordnet
+  input_format: graph
+  data_file: data/raw/gup-paper/extracted/dataset/wordnet/data_graph/wordnet.graph
+  query_dir: data/raw/gup-paper/extracted/dataset/wordnet/query_graph
+  query_glob: query_dense_16_*.graph
+  recommended_smoke_limit: 10
+
+- workload_name: patents_8s
+  dataset_name: patents
+  input_format: graph
+  data_file: data/raw/gup-paper/extracted/dataset/patents/data_graph/patents.graph
+  query_dir: data/raw/gup-paper/extracted/dataset/patents/query_graph
+  query_glob: query_sparse_8_*.graph
+  recommended_smoke_limit: 5

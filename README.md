@@ -124,6 +124,18 @@ SubgraphMatch/
 7. 跑通 3-4 组数据并输出图表。
 8. 撰写英文报告和答辩材料。
 
+## 新用户首次接入：先手动准备数据集
+
+> 新用户拉取本仓库后，请先**手动下载数据集**，再运行真实数据实验。数据集文件不会完整提交到 Git 仓库中。
+
+当前约定如下：
+
+- 下载链接已放在 `data/raw/gup-paper/数据集链接`
+- 下载得到的压缩包请放在 `data/raw/gup-paper/dataset.zip`
+- 解压后的数据建议放在 `data/raw/gup-paper/extracted/dataset/`
+
+如果你只想先验证代码是否能跑通，可以先使用仓库内置的 `toy` 样例；但如果要跑课程项目里的真实数据实验，请先完成上面的手动下载与解压。
+
 ## 快速开始
 
 ```bash
@@ -140,10 +152,54 @@ python scripts/run_experiment.py
 - 运行一个正确性优先的 baseline 回溯匹配器
 - 输出 `result mappings / partial mappings / pruned partial mappings / runtime_ms`
 
+当前 `scripts/run_gup_experiment.py` 已经会：
+
+- 运行单次 `baseline` 或 `GUP-lite` 实验
+- 支持 `reservation guard` / `nogood guard` 开关
+- 将原始结果写入 `results/raw/*.json`
+- 支持官方 GUP 输入格式：`.vertices/.edges` + YAML query set + `query_index`
+
+当前 `scripts/run_gup_batch.py` 和 `scripts/summarize_results.py` 已经会：
+
+- 按标准消融配置批量运行 `baseline / reservation only / nogood only / full GUP`
+- 将 `results/raw/*.json` 汇总成 `results/tables/summary.csv`
+- 通过 `run_tag` 和 `glob-pattern` 只汇总某一批实验结果
+
+当前 `scripts/run_query_set_batch.py` 已经会：
+
+- 对真实 `.graph` 查询集按 `query_glob` 批量运行
+- 按标准消融配置为每个 query 输出 JSON 结果
+- 支持 `timeout_sec`，将过重 query 记录为 `timeout`
+
+当前代码还已经支持读取 GUP 官方输入格式：
+
+- 数据图：`.vertices` + `.edges`
+- 查询集：YAML query set
+- 示例文件见 `data/sample/gup_example.*` 和 `data/sample/gup_query_set.yaml`
+
 如需运行当前测试：
 
 ```bash
 python3 -m unittest -q
+```
+
+如需运行一次单次 GUP 实验：
+
+```bash
+python3 scripts/run_gup_experiment.py --matcher gup --omit-mappings
+```
+
+如需运行一次官方 GUP 格式样例：
+
+```bash
+python3 scripts/run_gup_experiment.py --matcher gup --input-format gup --data-file data/sample/gup_example --query-file data/sample/gup_query_set.yaml --query-index 1 --omit-mappings
+```
+
+如需运行一组标准消融实验并汇总：
+
+```bash
+python3 scripts/run_gup_batch.py --omit-mappings --run-tag toy-batch-20260607
+python3 scripts/summarize_results.py --glob-pattern 'toy-batch-20260607*.json' --output-file results/tables/toy-batch-20260607-summary.csv
 ```
 
 当前 baseline 的定位是：
@@ -156,6 +212,8 @@ python3 -m unittest -q
 
 - `docs/interface-spec.md`：图格式、matcher 接口、实验输出字段
 - `docs/metrics-definition.md`：4 个课程核心指标的统一统计口径
+- `docs/gup-experiment-datasets.md`：GUP 论文实验数据、课程主方案、下载与放置约定
+- `configs/gup_real_workloads.yaml`：当前课程项目的真实 workload 清单
 
 ## 两人协作建议
 
