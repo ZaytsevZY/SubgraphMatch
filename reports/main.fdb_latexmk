@@ -1,14 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1780850280.42165 "main.aux" "main.bbl" "main" 1780850282.61094 0
+["bibtex main"] 1780853978.51392 "main.aux" "main.bbl" "main" 1780853979.54971 0
   "./ACM-Reference-Format.bst" 1780815367.49985 93560 7091f2b0543d2c8bfe2e82ce5d54a029 ""
   "./references.bib" 1780847268.80743 2602 8dfd025a3bf9d32b24f485c756a8d236 ""
-  "main.aux" 1780850282.3024 8455 8dd9b5d5980edace1d1da8f11878405d "pdflatex"
+  "main.aux" 1780853979.27471 9972 7affd81514280f9c507285f560f238b7 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1780850280.54043 "/Users/bytedance/Desktop/zhayi/university/SubgraphMatch/reports/main.tex" "main.pdf" "main" 1780850282.61106 0
-  "/Users/bytedance/Desktop/zhayi/university/SubgraphMatch/reports/main.tex" 1780843523.64516 2312 371db0367dc9e40945b4684320896dc0 ""
+["pdflatex"] 1780853978.60081 "main.tex" "main.pdf" "main" 1780853979.54984 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc" 1558214095 7693 0f2dce6d313c82989ec3a67fc24df2a0 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
@@ -205,20 +204,20 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1780820233 3636778 6e8fcfe83a4dee97138c6c6ecfc524c3 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acmart.cls" 1780815367.49291 121673 237171c824d412bde1a66cc8867ba17f ""
-  "main.aux" 1780850282.3024 8455 8dd9b5d5980edace1d1da8f11878405d "pdflatex"
-  "main.bbl" 1780850280.53857 5785 272ebfe5a57f1a281b5174738cae9d24 "bibtex main"
-  "main.out" 1780850282.3116 5933 73010aeae02afce90677971d29ec6450 "pdflatex"
-  "main.tex" 1780843523.64516 2312 371db0367dc9e40945b4684320896dc0 ""
-  "sections/ablation-study.tex" 1780844566.36924 3348 1a207250be6d8a350222b3cc42806551 ""
-  "sections/conclusion-discussion.tex" 1780843589.97312 2561 b5b8121cb233b661890626202ce046bf ""
+  "main.aux" 1780853979.27471 9972 7affd81514280f9c507285f560f238b7 "pdflatex"
+  "main.bbl" 1780853978.59337 5859 cf6e22864b8679a800a55f32d3cb794e "bibtex main"
+  "main.out" 1780853979.28402 6754 80538706c2a0d42432d9426e1f88fc27 "pdflatex"
+  "main.tex" 1780852254.99939 2240 b9251ddc640165e766c0e0b2cbcef414 ""
+  "sections/ablation-study.tex" 1780852255.01616 3255 1692f16fbe2953303e0043e9f1907fa8 ""
+  "sections/conclusion-discussion.tex" 1780852255.02128 2453 04307fb6662d1628757a1ef6d39c85e4 ""
   "sections/division-of-labor.tex" 1780820884.94561 454 a7911f18b37b930e59a0d3df6527772f ""
-  "sections/experimental-results.tex" 1780843563.17913 4960 7675539d8b9fc84e33689f502b651420 ""
-  "sections/experimental-setup.tex" 1780843523.64925 2708 555bcb46de29d9f0a2152453c04fb7b7 ""
-  "sections/implementation-details.tex" 1780822989.00432 4743 4a9b62203e79c5001e0abec28a5b4256 ""
-  "sections/introduction.tex" 1780843523.64625 3897 fcbd3817a725a02d0e22d2e7179a1e2c ""
-  "sections/literature-review.tex" 1780843563.17818 3982 873b4a995af5b3f65d155c9c1612e2c7 ""
-  "sections/problem-definition.tex" 1780822855.89893 2266 55dcf7e1726a22a25d84d3e32b9d1701 ""
-  "sections/reproduced-paper.tex" 1780822855.91403 2967 06a140b07e741fb73f2f8849335ffc93 ""
+  "sections/experimental-results.tex" 1780852255.01124 4975 f70c2412b92534792f40a40cf764b1a5 ""
+  "sections/experimental-setup.tex" 1780852087.84207 2664 d706b9df7c6bdcf5f82bb61471ae56c5 ""
+  "sections/implementation-details.tex" 1780852087.84196 4719 e25a6877dd16b3b64c603d2342170a2d ""
+  "sections/introduction.tex" 1780852255.0057 3774 ec7c1f2d7d0881de74be85ce39778b37 ""
+  "sections/literature-review.tex" 1780853977.19589 11981 e4c929748b7e77f1e673b907f0decdb9 ""
+  "sections/problem-definition.tex" 1780852087.84163 2253 d0bff285b362efb83b1a5204dc946a32 ""
+  "sections/reproduced-paper.tex" 1780852087.84184 2947 0f8d89c522ed217d011639727922a782 ""
   (generated)
   "main.aux"
   "main.log"

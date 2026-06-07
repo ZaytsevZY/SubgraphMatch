@@ -1,7 +1,7 @@
 \section{Required Experimental Results on Multiple Datasets}
 \label{sec:exp-results}
 
-Table~\ref{tab:required-metrics} reports the mandatory evaluation results on the three successful datasets. The table directly matches the project rubric by listing runtime, result mappings, partial mappings, and the number of partial mappings filtered by the reproduced paper's strategies.
+Table~\ref{tab:required-metrics} reports the mandatory evaluation results on the three successful datasets. The table lists the four required metrics: runtime, result mappings, partial mappings, and the number of partial mappings filtered by the reproduced paper's strategies.
 
 \begin{longtable}{lllrccc}
   \caption{Required metrics on the three successful datasets. `Paper-filtered PM' denotes the number of partial mappings pruned by GuP-style filtering strategies only.}\label{tab:required-metrics}\\
@@ -45,15 +45,15 @@ Table~\ref{tab:required-metrics} reports the mandatory evaluation results on the
   \bottomrule
 \end{longtable}
 
-The three successful datasets support three observations. First, the report now satisfies the ``3--4 datasets'' requirement with \texttt{Yeast}, \texttt{Human}, and \texttt{HPRD} as complete successful datasets.
+Taken together, the three successful datasets support three main observations. First, the report now satisfies the ``3--4 datasets'' requirement with \texttt{Yeast}, \texttt{Human}, and \texttt{HPRD} as complete successful datasets.
 
-Second, the reservation guard is the only reproduced paper strategy that consistently contributes nonzero paper-filtered partial mappings on the current real workloads.
+Second, among the reproduced paper strategies, only the reservation guard contributes nonzero paper-filtered partial mappings consistently on the real workloads considered here.
 
-Third, the effect of reservation-based pruning is workload-dependent. It is dramatic on \texttt{HPRD d4-10}, moderate on \texttt{HPRD d4-1} and \texttt{Yeast d4-10}, and very small on \texttt{Human d4-10}.
+Third, the benefit of reservation-based pruning is clearly workload-dependent: it is strongest on \texttt{HPRD d4-10}, moderate on \texttt{HPRD d4-1} and \texttt{Yeast d4-10}, and very small on \texttt{Human d4-10}.
 
-HPRD is especially useful because it fills the gap between small datasets and large boundary workloads. On \texttt{HPRD d4-10}, reservation-based pruning reduces the number of partial mappings from 51 to 11 and improves runtime from 8.96 ms to about 1.35 ms. On \texttt{HPRD d4-1}, it reduces the search space by 74 partial mappings and improves runtime by about 12\%.
+HPRD is especially informative because it fills the gap between the smaller datasets and the boundary workloads. On \texttt{HPRD d4-10}, reservation-based pruning reduces the number of partial mappings from 51 to 11 and improves runtime from 8.96 ms to about 1.35 ms. On \texttt{HPRD d4-1}, it reduces the search space by 74 partial mappings and improves runtime by about 12\%.
 
-For \texttt{Human} and \texttt{Yeast}, the conclusions are mixed but still informative. On \texttt{Human d4-1}, full GUP achieves the best runtime among all tested variants. On \texttt{Yeast d4-10}, both reservation-only and full GUP improve runtime, and reservation-only gives the strongest speedup. In contrast, on \texttt{Human d4-10}, the reservation guard still reduces the search space slightly, but the current prototype does not translate that gain into lower runtime.
+The results on \texttt{Human} and \texttt{Yeast} are more mixed, but still informative. On \texttt{Human d4-1}, full GUP achieves the best runtime among all tested variants. On \texttt{Yeast d4-10}, both reservation-only and full GUP improve runtime, and reservation-only gives the strongest speedup. By contrast, on \texttt{Human d4-10}, the reservation guard still reduces the search space slightly, but the prototype does not convert that gain into lower runtime.
 
 \begin{table}[t]
   \caption{Time-boxed boundary datasets under the 120-second protocol.}
@@ -72,4 +72,4 @@ For \texttt{Human} and \texttt{Yeast}, the conclusions are mixed but still infor
   \end{tabular}
 \end{table}
 
-Table~\ref{tab:boundary-datasets} records the boundary workloads explicitly rather than hiding them. These results do not contribute complete metric rows, but they are still important because they delimit the scalability range of the current Python prototype. Thus the report contains both the required successful datasets and a transparent account of the workloads that remain beyond the current implementation boundary.
+Table~\ref{tab:boundary-datasets} records the boundary workloads explicitly rather than omitting them. These runs do not contribute complete metric rows, but they remain important because they mark the scalability range of the Python prototype. The report therefore includes both the required successful datasets and a transparent account of the workloads that remain beyond the current implementation boundary.

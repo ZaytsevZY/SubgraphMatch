@@ -1,7 +1,7 @@
 \section{Experimental Setup}
 \label{sec:exp-setup}
 
-The benchmark data were taken from the public dataset package used in the GuP study and loaded through the project's unified \texttt{.graph} parser. To align the report with the course grading rubric, we explicitly separate \emph{main successful datasets} from \emph{time-boxed boundary datasets}.
+The benchmark data were taken from the public dataset package used in the GuP study and loaded through the project's unified \texttt{.graph} parser. For clarity, we explicitly separate \emph{main successful datasets} from \emph{time-boxed boundary datasets}.
 
 \begin{table}[t]
   \caption{Datasets used in the report.}
@@ -47,6 +47,6 @@ We compare four variants, corresponding directly to the required filtering-strat
 
 \subsection{Measured Metrics and Time-box Policy}
 
-For every successful run, we record runtime, result mappings, partial mappings, and paper-filtered partial mappings. The paper-filtered count is computed from the prune-reason log and currently consists of the number of extensions rejected by the reservation and nogood guards. Since the current implementation rarely activates useful nogood pruning on the main workloads, the paper-filtered count is dominated by the reservation guard in the final results.
+For every successful run, we record runtime, result mappings, partial mappings, and paper-filtered partial mappings. The paper-filtered count is computed from the prune-reason log and currently consists of the number of extensions rejected by the reservation and nogood guards. Because the current implementation rarely activates useful nogood pruning on the main workloads, the paper-filtered count is dominated by the reservation guard in the final results.
 
-For boundary datasets, we use a 120-second time box. If a run does not finish within this limit, it is explicitly reported as \texttt{timeout} instead of being silently excluded. This makes the scalability boundary of the current prototype visible and reproducible.
+For boundary datasets, we use a 120-second time box. If a run does not finish within this limit, it is explicitly reported as \texttt{timeout} instead of being silently excluded. This makes the scalability boundary of the prototype explicit and reproducible.

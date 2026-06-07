@@ -12,7 +12,7 @@
 \usepackage{hyperref}
 \usepackage{array}
 
-\title{Course-Project Reproduction of GuP for Exact Subgraph Matching}
+\title{A Course-Project Reproduction Study of GuP for Exact Subgraph Matching}
 
 \author{Yi Zha}
 \affiliation{%
@@ -31,7 +31,7 @@
 \begin{document}
 
 \begin{abstract}
-This report presents a course-project reproduction of GuP, an exact subgraph matching algorithm based on guard-based pruning. We implemented a correctness-first baseline matcher and extended it with a \emph{GUP-lite} design that supports reservation-based pruning, nogood-based pruning, metric collection, and filtering-strategy ablation. The final report is organized to match the grading rubric explicitly: it contains a literature taxonomy, a reproduction-scope statement, required experiments on three successful datasets (Yeast, Human, and HPRD), and a time-boxed boundary evaluation on WordNet and Patents. The results show that reservation-based pruning is already effective on several real workloads and is the dominant source of measurable search-space reduction in the current prototype, while the current nogood mechanism remains conservative and the Python implementation still has a visible scalability boundary.
+This report presents a course-project reproduction study of GuP, an exact subgraph matching method based on guard-based pruning. We implemented a correctness-oriented baseline matcher and extended it with a \emph{GUP-lite} design that supports reservation-based pruning, nogood-based pruning, metric collection, and filtering-strategy ablation. The study includes a literature taxonomy, a clear statement of reproduction scope, experiments on three successful datasets (Yeast, Human, and HPRD), and a time-boxed boundary evaluation on WordNet and Patents. Overall, reservation-based pruning is already effective on several real workloads and is the main source of measurable search-space reduction in our prototype, whereas the current nogood mechanism remains conservative and the Python implementation still shows a clear scalability boundary.
 \end{abstract}
 
 \maketitle

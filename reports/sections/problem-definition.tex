@@ -24,11 +24,11 @@ The project specification requires four core metrics. We make the counting rules
   \item \textbf{Paper-filtered partial mappings}: the number of partial extensions pruned specifically by the reproduced paper's filtering strategies.
 \end{itemize}
 
-The last metric deserves special clarification. Our internal counter \texttt{pruned\_partial\_mappings} records \emph{all} rejected extensions, including injectivity and edge-consistency conflicts. However, the assignment specifically asks for the number of partial mappings filtered out by the paper's own strategies. Therefore, in the report we separately extract:
+The last metric requires special clarification. Our internal counter \texttt{pruned\_partial\_mappings} records \emph{all} rejected extensions, including injectivity and edge-consistency conflicts. However, the assignment specifically asks for the number of partial mappings filtered out by the paper's own strategies. Therefore, in the report we separately extract:
 \begin{itemize}[nosep]
   \item \texttt{reservation\_guard\_filtered},
   \item \texttt{nogood\_guard\_filtered}, and
   \item \texttt{paper\_filter\_filtered\_total} = reservation + nogood.
 \end{itemize}
 
-This distinction is important for grading: the total prune count reflects the whole feasibility-check framework, while the paper-filtered count reflects the contribution of the reproduced GuP-style filtering strategies themselves.
+This distinction is important because the total prune count reflects the entire feasibility-check framework, whereas the paper-filtered count isolates the contribution of the reproduced GuP-style filtering strategies.

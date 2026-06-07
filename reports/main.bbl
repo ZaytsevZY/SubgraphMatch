@@ -38,50 +38,87 @@
 
 \bibitem[Arai et~al\mbox{.}(2023)]%
         {arai2023gup}
-\bibfield{author}{\bibinfo{person}{Junya Arai}, \bibinfo{person}{Yasuhiro Fujiwara}, {and} \bibinfo{person}{Makoto Onizuka}.} \bibinfo{year}{2023}\natexlab{}.
-\newblock \showarticletitle{GuP: Fast Subgraph Matching by Guard-Based Pruning}.
-\newblock \bibinfo{journal}{\emph{Proceedings of the ACM on Management of Data}} \bibinfo{volume}{1}, \bibinfo{number}{2}, Article \bibinfo{articleno}{167} (\bibinfo{date}{June} \bibinfo{year}{2023}), \bibinfo{numpages}{26}~pages.
+\bibfield{author}{\bibinfo{person}{Junya Arai}, \bibinfo{person}{Yasuhiro
+  Fujiwara}, {and} \bibinfo{person}{Makoto Onizuka}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{GuP: Fast Subgraph Matching by Guard-Based
+  Pruning}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the ACM on Management of
+  Data}} \bibinfo{volume}{1}, \bibinfo{number}{2}, Article
+  \bibinfo{articleno}{167} (\bibinfo{date}{June} \bibinfo{year}{2023}),
+  \bibinfo{numpages}{26}~pages.
 \newblock
 \href{https://doi.org/10.1145/3589312}{doi:\nolinkurl{10.1145/3589312}}
 
 
 \bibitem[Han et~al\mbox{.}(2019)]%
         {han2019daf}
-\bibfield{author}{\bibinfo{person}{Minseok Han}, \bibinfo{person}{Hwanjo Kim}, \bibinfo{person}{Gyeong Gu}, \bibinfo{person}{Kunsoo Park}, {and} \bibinfo{person}{Wook-Shin Han}.} \bibinfo{year}{2019}\natexlab{}.
-\newblock \showarticletitle{Efficient Subgraph Matching: Harmonizing Dynamic Programming, Adaptive Matching Order, and Failing Set Together}. In \bibinfo{booktitle}{\emph{Proceedings of the 2019 International Conference on Management of Data}} \emph{(\bibinfo{series}{SIGMOD '19})}. \bibinfo{publisher}{Association for Computing Machinery}, \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{1429--1446}.
+\bibfield{author}{\bibinfo{person}{Minseok Han}, \bibinfo{person}{Hwanjo Kim},
+  \bibinfo{person}{Gyeong Gu}, \bibinfo{person}{Kunsoo Park}, {and}
+  \bibinfo{person}{Wook-Shin Han}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Efficient Subgraph Matching: Harmonizing Dynamic
+  Programming, Adaptive Matching Order, and Failing Set Together}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2019 International Conference on
+  Management of Data}} \emph{(\bibinfo{series}{SIGMOD '19})}.
+  \bibinfo{publisher}{Association for Computing Machinery},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{1429--1446}.
 \newblock
 \href{https://doi.org/10.1145/3299869.3319880}{doi:\nolinkurl{10.1145/3299869.3319880}}
 
 
 \bibitem[He and Singh(2008)]%
         {he2008graphql}
-\bibfield{author}{\bibinfo{person}{Huahai He} {and} \bibinfo{person}{Ambuj~K. Singh}.} \bibinfo{year}{2008}\natexlab{}.
-\newblock \showarticletitle{Graphs-at-a-Time: Query Language and Access Methods for Graph Databases}. In \bibinfo{booktitle}{\emph{Proceedings of the 2008 ACM SIGMOD International Conference on Management of Data}} \emph{(\bibinfo{series}{SIGMOD '08})}. \bibinfo{publisher}{Association for Computing Machinery}, \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{405--418}.
+\bibfield{author}{\bibinfo{person}{Huahai He} {and} \bibinfo{person}{Ambuj~K.
+  Singh}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Graphs-at-a-Time: Query Language and Access Methods
+  for Graph Databases}. In \bibinfo{booktitle}{\emph{Proceedings of the 2008
+  ACM SIGMOD International Conference on Management of Data}}
+  \emph{(\bibinfo{series}{SIGMOD '08})}. \bibinfo{publisher}{Association for
+  Computing Machinery}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{405--418}.
 \newblock
 \href{https://doi.org/10.1145/1376616.1376655}{doi:\nolinkurl{10.1145/1376616.1376655}}
 
 
 \bibitem[Kim et~al\mbox{.}(2021)]%
         {kim2022veq}
-\bibfield{author}{\bibinfo{person}{Hyunjoon Kim}, \bibinfo{person}{Yunyoung Choi}, \bibinfo{person}{Kunsoo Park}, \bibinfo{person}{Xuemin Lin}, \bibinfo{person}{Seok-Hee Hong}, {and} \bibinfo{person}{Wook-Shin Han}.} \bibinfo{year}{2021}\natexlab{}.
-\newblock \showarticletitle{Versatile Equivalences: Speeding up Subgraph Query Processing and Subgraph Matching}. In \bibinfo{booktitle}{\emph{Proceedings of the 2021 International Conference on Management of Data}} \emph{(\bibinfo{series}{SIGMOD '21})}. \bibinfo{publisher}{Association for Computing Machinery}, \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{925--937}.
+\bibfield{author}{\bibinfo{person}{Hyunjoon Kim}, \bibinfo{person}{Yunyoung
+  Choi}, \bibinfo{person}{Kunsoo Park}, \bibinfo{person}{Xuemin Lin},
+  \bibinfo{person}{Seok-Hee Hong}, {and} \bibinfo{person}{Wook-Shin Han}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Versatile Equivalences: Speeding up Subgraph Query
+  Processing and Subgraph Matching}. In \bibinfo{booktitle}{\emph{Proceedings
+  of the 2021 International Conference on Management of Data}}
+  \emph{(\bibinfo{series}{SIGMOD '21})}. \bibinfo{publisher}{Association for
+  Computing Machinery}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{925--937}.
 \newblock
 \href{https://doi.org/10.1145/3448016.3457265}{doi:\nolinkurl{10.1145/3448016.3457265}}
 
 
 \bibitem[Sun and Luo(2020)]%
         {sun2020study}
-\bibfield{author}{\bibinfo{person}{Shixuan Sun} {and} \bibinfo{person}{Qiong Luo}.} \bibinfo{year}{2020}\natexlab{}.
-\newblock \showarticletitle{In-Memory Subgraph Matching: An In-Depth Study}. In \bibinfo{booktitle}{\emph{Proceedings of the 2020 ACM SIGMOD International Conference on Management of Data}} \emph{(\bibinfo{series}{SIGMOD '20})}. \bibinfo{publisher}{Association for Computing Machinery}, \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{1083--1098}.
+\bibfield{author}{\bibinfo{person}{Shixuan Sun} {and} \bibinfo{person}{Qiong
+  Luo}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{In-Memory Subgraph Matching: An In-Depth Study}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2020 ACM SIGMOD International
+  Conference on Management of Data}} \emph{(\bibinfo{series}{SIGMOD '20})}.
+  \bibinfo{publisher}{Association for Computing Machinery},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{1083--1098}.
 \newblock
 \href{https://doi.org/10.1145/3318464.3380581}{doi:\nolinkurl{10.1145/3318464.3380581}}
 
 
 \bibitem[Sun et~al\mbox{.}(2020)]%
         {sun2021rapidmatch}
-\bibfield{author}{\bibinfo{person}{Shixuan Sun}, \bibinfo{person}{Xibo Sun}, \bibinfo{person}{Yulin Che}, \bibinfo{person}{Qiong Luo}, {and} \bibinfo{person}{Bingsheng He}.} \bibinfo{year}{2020}\natexlab{}.
-\newblock \showarticletitle{RapidMatch: A Holistic Approach to Subgraph Query Processing}.
-\newblock \bibinfo{journal}{\emph{Proceedings of the VLDB Endowment}} \bibinfo{volume}{14}, \bibinfo{number}{2} (\bibinfo{year}{2020}), \bibinfo{pages}{176--188}.
+\bibfield{author}{\bibinfo{person}{Shixuan Sun}, \bibinfo{person}{Xibo Sun},
+  \bibinfo{person}{Yulin Che}, \bibinfo{person}{Qiong Luo}, {and}
+  \bibinfo{person}{Bingsheng He}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{RapidMatch: A Holistic Approach to Subgraph Query
+  Processing}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the VLDB Endowment}}
+  \bibinfo{volume}{14}, \bibinfo{number}{2} (\bibinfo{year}{2020}),
+  \bibinfo{pages}{176--188}.
 \newblock
 \href{https://doi.org/10.14778/3425879.3425888}{doi:\nolinkurl{10.14778/3425879.3425888}}
 
