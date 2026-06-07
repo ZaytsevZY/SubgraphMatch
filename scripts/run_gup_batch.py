@@ -29,6 +29,12 @@ DEFAULT_BATCH: list[BatchRun] = [
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Run a standard batch of baseline/GUP ablation experiments.')
     parser.add_argument(
+        '--input-format',
+        choices=['toy', 'gup', 'graph'],
+        default='toy',
+        help='Input format passed to run_gup_experiment.py.',
+    )
+    parser.add_argument(
         '--data-file',
         type=Path,
         default=ROOT / 'data' / 'sample' / 'toy_graph.txt',
@@ -69,6 +75,12 @@ def parse_args() -> argparse.Namespace:
         action='store_true',
         help='Do not include the full mappings list in output JSON files.',
     )
+    parser.add_argument(
+        '--timeout-sec',
+        type=int,
+        default=None,
+        help='Optional timeout in seconds for each single-query run.',
+    )
     return parser.parse_args()
 
 
@@ -79,6 +91,8 @@ def build_command(args: argparse.Namespace, run: BatchRun) -> list[str]:
         str(ROOT / 'scripts' / 'run_gup_experiment.py'),
         '--matcher',
         run.matcher,
+        '--input-format',
+        args.input_format,
         '--data-file',
         str(args.data_file),
         '--query-file',
@@ -96,6 +110,8 @@ def build_command(args: argparse.Namespace, run: BatchRun) -> list[str]:
         command.append('--disable-nogood-guard')
     if args.omit_mappings:
         command.append('--omit-mappings')
+    if args.timeout_sec is not None:
+        command.extend(['--timeout-sec', str(args.timeout_sec)])
     return command
 
 
@@ -108,8 +124,10 @@ def main() -> None:
     print('Starting batch experiment run.')
     print(f'  dataset={args.dataset_name}')
     print(f'  query={args.query_name}')
+    print(f'  input_format={args.input_format}')
     print(f'  output_dir={args.output_dir}')
     print(f'  run_tag={args.run_tag}')
+    print(f'  timeout_sec={args.timeout_sec}')
 
     for run in DEFAULT_BATCH:
         print(f'Running configuration: {run.label}')

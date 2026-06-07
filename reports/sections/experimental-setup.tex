@@ -1,0 +1,52 @@
+\section{Experimental Setup}
+\label{sec:exp-setup}
+
+The benchmark data were taken from the public dataset package used in the GuP study and loaded through the project's unified \texttt{.graph} parser. To align the report with the course grading rubric, we explicitly separate \emph{main successful datasets} from \emph{time-boxed boundary datasets}.
+
+\begin{table}[t]
+  \caption{Datasets used in the report.}
+  \label{tab:dataset-summary}
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lrrp{0.13\textwidth}p{0.11\textwidth}}
+    \toprule
+    Dataset & $|V|$ & $|E|$ & Queries used & Role \\
+    \midrule
+    Yeast & 3112 & 12519 & dense-4: 1, 10 & Main \\
+    Human & 4674 & 86282 & dense-4: 1, 10 & Main \\
+    HPRD & 9460 & 34998 & dense-4: 1, 10 & Main \\
+    WordNet & 76853 & 120399 & dense-4: 1; sparse-8: 15 & Boundary \\
+    Patents & 3774768 & 16518947 & dense-4: 1; sparse-8: 15 & Boundary \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The final mandatory evaluation is based on three successful datasets: \texttt{Yeast}, \texttt{Human}, and \texttt{HPRD}. For each of these datasets, we report results on two real benchmark queries so that the report covers both lighter and heavier search regimes. \texttt{WordNet} and \texttt{Patents} are retained as time-boxed boundary datasets because the current Python prototype still reaches its scalability limit on them.
+
+\subsection{Compared Variants}
+
+We compare four variants, corresponding directly to the required filtering-strategy ablation.
+
+\begin{table}[t]
+  \caption{Filtering-strategy switches used in the experiments.}
+  \label{tab:strategy-switch}
+  \centering
+  \small
+  \begin{tabular}{lcc}
+    \toprule
+    Variant & Reservation guard & Nogood guard \\
+    \midrule
+    Baseline & Off & Off \\
+    Reservation only & On & Off \\
+    Nogood only & Off & On \\
+    Full GUP & On & On \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Measured Metrics and Time-box Policy}
+
+For every successful run, we record runtime, result mappings, partial mappings, and paper-filtered partial mappings. The paper-filtered count is computed from the prune-reason log and currently consists of the number of extensions rejected by the reservation and nogood guards. Since the current implementation rarely activates useful nogood pruning on the main workloads, the paper-filtered count is dominated by the reservation guard in the final results.
+
+For boundary datasets, we use a 120-second time box. If a run does not finish within this limit, it is explicitly reported as \texttt{timeout} instead of being silently excluded. This makes the scalability boundary of the current prototype visible and reproducible.

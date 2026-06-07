@@ -80,18 +80,22 @@ class GUPMatcher:
             ):
                 continue
 
-            context = GuardContext(
-                query_vertex=query_vertex,
-                data_vertex=data_vertex,
-                depth=depth,
-                query_graph=query_graph,
-                data_graph=data_graph,
-                candidates=candidates,
-                vertex_order=vertex_order,
-                state=state,
-            )
-            if self._is_guard_pruned(context=context, statistics=statistics):
-                continue
+            active_guards = [guard for guard in self.guards if self._guard_is_active(guard, query_vertex)]
+            if active_guards:
+                context = GuardContext(
+                    query_vertex=query_vertex,
+                    data_vertex=data_vertex,
+                    depth=depth,
+                    query_graph=query_graph,
+                    data_graph=data_graph,
+                    candidates=candidates,
+                    vertex_order=vertex_order,
+                    state=state,
+                )
+                if self._is_guard_pruned(context=context, statistics=statistics, guards=active_guards):
+                    continue
+            else:
+                context = None
 
             state.assign(query_vertex, data_vertex)
             statistics.record_partial_mapping()
@@ -108,7 +112,7 @@ class GUPMatcher:
             )
             state.unassign(query_vertex)
 
-            if statistics.result_mappings == before_results:
+            if context is not None and statistics.result_mappings == before_results:
                 self._record_dead_end(context)
 
     def _is_feasible(
@@ -134,8 +138,8 @@ class GUPMatcher:
 
         return True
 
-    def _is_guard_pruned(self, context: GuardContext, statistics: MatchStatistics) -> bool:
-        for guard in self.guards:
+    def _is_guard_pruned(self, context: GuardContext, statistics: MatchStatistics, guards: List[SearchGuard]) -> bool:
+        for guard in guards:
             statistics.record_guard_check()
             reason = guard.should_prune(context)
             if reason is None:
@@ -143,6 +147,12 @@ class GUPMatcher:
             statistics.record_prune(reason)
             return True
         return False
+
+    def _guard_is_active(self, guard: SearchGuard, query_vertex: int) -> bool:
+        is_active = getattr(guard, 'is_active', None)
+        if callable(is_active):
+            return bool(is_active(query_vertex))
+        return True
 
     def _record_dead_end(self, context: GuardContext) -> None:
         for guard in self.guards:

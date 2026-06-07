@@ -23,6 +23,7 @@ class NogoodGuard:
         self._dead_end_signatures: set[
             tuple[int, int, int, tuple[int, ...], tuple[tuple[int, int], ...]]
         ] = set()
+        self._active_query_vertices: set[int] = set()
 
     def should_prune(self, context: GuardContext) -> str | None:
         if self._build_signature(context) in self._dead_end_signatures:
@@ -31,6 +32,10 @@ class NogoodGuard:
 
     def record_dead_end(self, context: GuardContext) -> None:
         self._dead_end_signatures.add(self._build_signature(context))
+        self._active_query_vertices.add(context.query_vertex)
+
+    def is_active(self, query_vertex: int) -> bool:
+        return query_vertex in self._active_query_vertices
 
     def _build_signature(
         self,

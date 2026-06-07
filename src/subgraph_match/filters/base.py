@@ -30,3 +30,6 @@ class SearchGuard(Protocol):
 
     def record_dead_end(self, context: GuardContext) -> None:
         ...
+
+    def is_active(self, query_vertex: int) -> bool:
+        ...

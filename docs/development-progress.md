@@ -65,6 +65,14 @@
 - 已新增当前结果摘要：`docs/current-results-summary.md`
 - 已将 `reservation_guard` 升级为预计算小型 reservation set 版本
 - 改进后在 `yeast/human` 的部分真实 query 上开始同时降低搜索空间和运行时间
+- 已新增报告结果草稿：`docs/report-results-draft.md`
+- 已新增英文实验分析草稿：`docs/report-experimental-analysis-draft.md`
+- 已生成终版报告主表：`results/tables/final_report_main_table.csv`
+- 已生成终版 Markdown 报告表：`results/tables/final_report_main_table.md`
+- 已新增英文结论与讨论草稿：`docs/report-conclusion-discussion-draft.md`
+- 已新增英文实现细节草稿：`docs/report-implementation-details-draft.md`
+- 已将 guard 检查改为按 query vertex 激活，减少无效 nogood 检查
+- `human/query_dense_4_10` 上的 `full GUP` 现已优于 baseline
 
 ## 当前进行中
 - 规划 `GUP` 的 guard 如何映射到当前 matcher 结构
@@ -140,6 +148,7 @@
 - 新增人类可读结果摘要：`docs/current-results-summary.md`
 - 新增报告式对比表：`results/tables/gup_real_ablation_report_table.csv`
 - 新增改进后结果表：`results/tables/hall-human-d4-summary.csv`、`results/tables/hall-yeast-d4-summary.csv`
+- 新增 guard-selective 结果表：`results/tables/nogsel-human-d410-summary.csv`
 
 ## 建议下一步
 1. 按 `configs/gup_real_workloads.yaml` 对 4 组 workload 分别做小规模 smoke run。

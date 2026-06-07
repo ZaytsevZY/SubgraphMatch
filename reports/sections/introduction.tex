@@ -1,0 +1,35 @@
+\section{Introduction}
+
+Exact subgraph matching is a fundamental graph query problem with applications in social-network analysis, biological interaction analysis, fraud detection, and graph database systems. Given a large vertex-labeled data graph and a smaller query graph, the goal is to enumerate all injective mappings that preserve both labels and edges. Although the problem definition is concise, the search space grows rapidly with the query size, which makes candidate filtering, matching-order optimization, and state-aware pruning essential in practice.
+
+In this project, we reproduce \emph{GuP}, a recent exact subgraph matching method based on guard-based pruning~\cite{arai2023gup}. GuP introduces two complementary pruning ideas: reservation guards, which propagate injectivity-related constraints to earlier search steps, and nogood guards, which attempt to reuse dead-end information discovered during the search. These mechanisms are designed to reduce futile recursive exploration while preserving exactness.
+
+The goal of this course project is not only to obtain a runnable implementation, but also to organize the report so that each required grading item is explicitly addressed. Therefore, besides implementing and evaluating a correctness-first GuP reproduction, we deliberately structure the report around the four mandatory scoring components in \texttt{Project 2}: literature review and taxonomy, reproduction of one selected paper, required experiments on multiple datasets with specified metrics, and ablation of filtering strategies.
+
+\subsection{Project Scope}
+
+Our implementation follows a staged strategy. We first build a baseline depth-first backtracking matcher, then add GuP-inspired reservation and nogood guards, and finally evaluate the resulting variants under a shared metric framework. The current system is still a course-project reproduction rather than a line-by-line reimplementation of the original authors' production code, but it already captures the main algorithmic components needed for comparative analysis.
+
+\subsection{Report Organization and Grading-Item Mapping}
+
+Table~\ref{tab:rubric-mapping} maps the report structure directly to the required grading items.
+
+\begin{table}[t]
+  \caption{Mapping from the grading rubric to the report structure.}
+  \label{tab:rubric-mapping}
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}p{0.18\columnwidth} >{\raggedright\arraybackslash}p{0.26\columnwidth} >{\raggedright\arraybackslash}X}
+    \toprule
+    Grading item & Report sections & Main evidence \\
+    \midrule
+    Literature review (15 pts) & Secs.~\ref{sec:lit-review}; Tab.~\ref{tab:taxonomy} & Taxonomy and positioning of GuP \\
+    Paper reproduction (20 pts) & Secs.~\ref{sec:paper-idea}, \ref{sec:impl-details}; Tab.~\ref{tab:repro-scope} & Reproduced components and scope boundary \\
+    Required experiments (20 pts) & Secs.~\ref{sec:exp-setup}, \ref{sec:exp-results}; Tabs.~\ref{tab:dataset-summary}, \ref{tab:required-metrics}, \ref{tab:boundary-datasets} & Runtime, result mappings, partial mappings, and paper-filtered partial mappings \\
+    Strategy ablation (15 pts) & Sec.~\ref{sec:ablation}; Tabs.~\ref{tab:strategy-switch}, \ref{tab:ablation-results} & Guard on/off comparison and contribution analysis \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The remainder of the report is organized as follows. Section~\ref{sec:lit-review} reviews the literature and builds a taxonomy for exact subgraph matching. Sections~\ref{sec:problem-def}--\ref{sec:impl-details} define the problem, summarize GuP, and describe the reproduced system. Sections~\ref{sec:exp-setup}--\ref{sec:ablation} present the required experiments and the ablation study. Section~\ref{sec:conclusion} concludes with a brief development-history discussion and personal reflection.

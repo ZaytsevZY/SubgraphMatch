@@ -25,6 +25,7 @@ class ReservationGuard:
         self.size_limit = size_limit
         self._reservation_map: dict[tuple[int, int], tuple[int, ...]] = {}
         self._impossible_candidates: set[tuple[int, int]] = set()
+        self._active_query_vertices: set[int] = set()
 
     def prepare(
         self,
@@ -35,6 +36,7 @@ class ReservationGuard:
     ) -> None:
         self._reservation_map.clear()
         self._impossible_candidates.clear()
+        self._active_query_vertices.clear()
 
         position = {query_vertex: depth for depth, query_vertex in enumerate(vertex_order)}
 
@@ -63,11 +65,16 @@ class ReservationGuard:
 
                 if impossible:
                     self._impossible_candidates.add((query_vertex, data_vertex))
+                    self._active_query_vertices.add(query_vertex)
                     continue
 
                 reservation = self._build_reservation_set(compatible_sets)
                 if reservation:
                     self._reservation_map[(query_vertex, data_vertex)] = tuple(sorted(reservation))
+                    self._active_query_vertices.add(query_vertex)
+
+    def is_active(self, query_vertex: int) -> bool:
+        return query_vertex in self._active_query_vertices
 
     def should_prune(self, context: GuardContext) -> str | None:
         candidate_key = (context.query_vertex, context.data_vertex)

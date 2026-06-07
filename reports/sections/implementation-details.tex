@@ -1,0 +1,38 @@
+\section{Implementation Details}
+\label{sec:impl-details}
+
+\subsection{Implementation Overview}
+
+We implemented the project in Python with a correctness-first design philosophy. The codebase contains two main matchers: a baseline depth-first backtracking matcher and a \emph{GUP-lite} matcher that reuses the same search framework but adds guard-based pruning. This shared architecture is important for the grading-oriented comparison because it allows the effect of individual filtering strategies to be isolated cleanly in Section~\ref{sec:ablation}.
+
+\subsection{Graph Representation and Input Handling}
+
+All graph variants are converted into a unified in-memory structure \texttt{LabeledGraph}, which stores an adjacency dictionary for undirected edges and a label dictionary for vertex labels. The project currently supports three input formats: a toy text format (\texttt{v/e}), the official GuP example format (\texttt{.vertices}, \texttt{.edges}, and YAML query sets), and the \texttt{.graph} format used by the downloaded benchmark package.
+
+\subsection{Baseline Matcher}
+
+The baseline matcher constructs candidate sets, computes a matching order, and performs recursive backtracking. Each extension is validated by injectivity and edge-consistency checks. The baseline already records \texttt{result\_mappings}, \texttt{partial\_mappings}, \texttt{pruned\_partial\_mappings}, and \texttt{runtime\_ms}, which makes it the common reference point for both the required multi-dataset experiments and the filtering-strategy ablation.
+
+\subsection{Candidate Generation and Matching Order}
+
+Candidate generation was upgraded from pure label filtering to a \texttt{label + degree} rule: a data vertex is kept as a candidate only if the labels match and the data-graph degree is at least the query-graph degree. The matching order is determined by ascending candidate-set size, descending degree, and vertex identifier as a tiebreaker. This part corresponds to the reproduced paper's candidate-space preparation, although it remains simpler than the richer engineering used in the original GuP implementation.
+
+\subsection{Reservation Guard}
+
+The reservation guard evolved through two stages. The earlier version behaved as a lightweight runtime forward check. The improved version precomputes small reservation sets before search. For a candidate assignment $(u, v)$, it inspects forward neighbors of $u$ in the matching order and collects compatible future candidates. If a small subset of those future candidates satisfies a Hall-style equality between subset size and the size of the candidate union, the union is treated as reserved. At runtime, the guard only tests whether one of those reserved data vertices has already been used.
+
+This component corresponds directly to one of the filtering strategies required by the project rubric. In the final experiments, it is also the main source of nonzero paper-filtered partial mappings.
+
+\subsection{Nogood Guard}
+
+The current nogood guard is a conservative memoization mechanism rather than a full reproduction of the original GuP nogood machinery. Instead of implementing the full search-node encoding from the paper, the current version stores a signature of the future subproblem after a candidate extension, including the search depth, the hypothetical used data vertices, and the frontier mapping. Later in the project, we further reduced overhead by activating nogood checks only on query vertices that had already accumulated relevant dead-end information.
+
+This component corresponds to the second filtering strategy in the required ablation. In the current reproduction it remains safe but conservative, which explains why its explicit pruning contribution is limited on the real datasets.
+
+\subsection{Metrics and Experiment Scripts}
+
+All variants share the same metric object, which records counts for results, partial mappings, pruned extensions, guard checks, guard-specific prune reasons, and runtime. To support reproducible experiments, we built a small workflow around three layers: single-run scripts, batch scripts for standard ablation, and result-summarization scripts that aggregate JSON outputs into report-oriented CSV tables.
+
+\subsection{Current Limitations}
+
+The implementation still differs from the original paper in several ways: the nogood mechanism remains simplified, the guarded candidate space is not fully reconstructed, the matching order is more basic than in GuP, and the entire system is implemented in Python. Nevertheless, the current implementation is sufficient to support the required scoring-item analysis: one-paper reproduction, multiple-dataset evaluation with explicit metrics, and direct ablation of the reproduced filtering strategies.

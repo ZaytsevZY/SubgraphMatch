@@ -202,6 +202,28 @@ python3 scripts/run_gup_batch.py --omit-mappings --run-tag toy-batch-20260607
 python3 scripts/summarize_results.py --glob-pattern 'toy-batch-20260607*.json' --output-file results/tables/toy-batch-20260607-summary.csv
 ```
 
+如需对真实 `.graph` workload 运行一组标准消融实验：
+
+```bash
+python3 scripts/run_gup_batch.py \
+  --input-format graph \
+  --data-file data/raw/gup-paper/extracted/dataset/hprd/data_graph/hprd.graph \
+  --query-file data/raw/gup-paper/extracted/dataset/hprd/query_graph/query_dense_4_1.graph \
+  --dataset-name hprd \
+  --query-name query_dense_4_1 \
+  --run-tag report-hprd-d41 \
+  --omit-mappings \
+  --timeout-sec 120
+```
+
+如需把报告实验结果汇总成专用表格：
+
+```bash
+python3 scripts/build_report_tables.py \
+  --glob-patterns 'report-hprd-*.json' 'final-human-*.json' 'final-yeast-*.json' \
+                  'wordnet-query-*-timeboxed.json' 'patents-query-*-timeboxed.json'
+```
+
 当前 baseline 的定位是：
 
 - 先把统一接口、计数器和实验输出跑通

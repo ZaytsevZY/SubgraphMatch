@@ -1,0 +1,75 @@
+\section{Required Experimental Results on Multiple Datasets}
+\label{sec:exp-results}
+
+Table~\ref{tab:required-metrics} reports the mandatory evaluation results on the three successful datasets. The table directly matches the project rubric by listing runtime, result mappings, partial mappings, and the number of partial mappings filtered by the reproduced paper's strategies.
+
+\begin{longtable}{lllrccc}
+  \caption{Required metrics on the three successful datasets. `Paper-filtered PM' denotes the number of partial mappings pruned by GuP-style filtering strategies only.}\label{tab:required-metrics}\\
+  \toprule
+  Dataset & Query & Variant & Result mappings & Partial mappings & Paper-filtered PM & Runtime (ms) \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Dataset & Query & Variant & Result mappings & Partial mappings & Paper-filtered PM & Runtime (ms) \\
+  \midrule
+  \endhead
+  HPRD & \texttt{d4-1} & Baseline & 980 & 1514 & 0 & 237.90 \\
+  HPRD & \texttt{d4-1} & Full GUP & 980 & 1440 & 74 & 208.63 \\
+  HPRD & \texttt{d4-1} & Nogood only & 980 & 1514 & 0 & 224.05 \\
+  HPRD & \texttt{d4-1} & Reservation only & 980 & 1440 & 74 & 211.05 \\
+  \midrule
+  HPRD & \texttt{d4-10} & Baseline & 4 & 51 & 0 & 8.96 \\
+  HPRD & \texttt{d4-10} & Full GUP & 4 & 11 & 27 & 1.35 \\
+  HPRD & \texttt{d4-10} & Nogood only & 4 & 51 & 0 & 6.88 \\
+  HPRD & \texttt{d4-10} & Reservation only & 4 & 11 & 27 & 1.36 \\
+  \midrule
+  Human & \texttt{d4-1} & Baseline & 10312 & 11013 & 0 & 185.86 \\
+  Human & \texttt{d4-1} & Full GUP & 10312 & 10916 & 97 & 143.34 \\
+  Human & \texttt{d4-1} & Nogood only & 10312 & 11013 & 0 & 161.53 \\
+  Human & \texttt{d4-1} & Reservation only & 10312 & 10916 & 97 & 170.25 \\
+  \midrule
+  Human & \texttt{d4-10} & Baseline & 12830306 & 12937898 & 0 & 50314.48 \\
+  Human & \texttt{d4-10} & Full GUP & 12830306 & 12937608 & 290 & 56733.61 \\
+  Human & \texttt{d4-10} & Nogood only & 12830306 & 12937898 & 0 & 55239.79 \\
+  Human & \texttt{d4-10} & Reservation only & 12830306 & 12937608 & 290 & 55887.18 \\
+  \midrule
+  Yeast & \texttt{d4-1} & Baseline & 720 & 772 & 0 & 19.27 \\
+  Yeast & \texttt{d4-1} & Full GUP & 720 & 772 & 0 & 27.72 \\
+  Yeast & \texttt{d4-1} & Nogood only & 720 & 772 & 0 & 22.68 \\
+  Yeast & \texttt{d4-1} & Reservation only & 720 & 772 & 0 & 19.11 \\
+  \midrule
+  Yeast & \texttt{d4-10} & Baseline & 19678 & 22624 & 0 & 805.98 \\
+  Yeast & \texttt{d4-10} & Full GUP & 19678 & 22283 & 341 & 731.28 \\
+  Yeast & \texttt{d4-10} & Nogood only & 19678 & 22624 & 0 & 809.12 \\
+  Yeast & \texttt{d4-10} & Reservation only & 19678 & 22283 & 341 & 682.42 \\
+  \bottomrule
+\end{longtable}
+
+The three successful datasets support three observations. First, the report now satisfies the ``3--4 datasets'' requirement with \texttt{Yeast}, \texttt{Human}, and \texttt{HPRD} as complete successful datasets.
+
+Second, the reservation guard is the only reproduced paper strategy that consistently contributes nonzero paper-filtered partial mappings on the current real workloads.
+
+Third, the effect of reservation-based pruning is workload-dependent. It is dramatic on \texttt{HPRD d4-10}, moderate on \texttt{HPRD d4-1} and \texttt{Yeast d4-10}, and very small on \texttt{Human d4-10}.
+
+HPRD is especially useful because it fills the gap between small datasets and large boundary workloads. On \texttt{HPRD d4-10}, reservation-based pruning reduces the number of partial mappings from 51 to 11 and improves runtime from 8.96 ms to about 1.35 ms. On \texttt{HPRD d4-1}, it reduces the search space by 74 partial mappings and improves runtime by about 12\%.
+
+For \texttt{Human} and \texttt{Yeast}, the conclusions are mixed but still informative. On \texttt{Human d4-1}, full GUP achieves the best runtime among all tested variants. On \texttt{Yeast d4-10}, both reservation-only and full GUP improve runtime, and reservation-only gives the strongest speedup. In contrast, on \texttt{Human d4-10}, the reservation guard still reduces the search space slightly, but the current prototype does not translate that gain into lower runtime.
+
+\begin{table}[t]
+  \caption{Time-boxed boundary datasets under the 120-second protocol.}
+  \label{tab:boundary-datasets}
+  \centering
+  \small
+  \begin{tabular}{llcc}
+    \toprule
+    Dataset & Query & Time limit (s) & Status \\
+    \midrule
+    WordNet & \texttt{d4-1} & 120 & timeout \\
+    WordNet & \texttt{s8-15} & 120 & timeout \\
+    Patents & \texttt{d4-1} & 120 & timeout \\
+    Patents & \texttt{s8-15} & 120 & timeout \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:boundary-datasets} records the boundary workloads explicitly rather than hiding them. These results do not contribute complete metric rows, but they are still important because they delimit the scalability range of the current Python prototype. Thus the report contains both the required successful datasets and a transparent account of the workloads that remain beyond the current implementation boundary.

@@ -1,0 +1,44 @@
+\section{Literature Review and Multi-dimensional Taxonomy}
+\label{sec:lit-review}
+
+Exact subgraph matching has been studied from multiple angles, including candidate filtering, matching-order optimization, conflict reuse, and system-level acceleration~\cite{he2008graphql,han2019daf,sun2020study,sun2021rapidmatch,kim2022veq,arai2023gup}. For this course project, the goal of the literature review is not simply to list representative papers, but to construct a \emph{multi-dimensional taxonomy} that can explain where GuP fits and why it is a suitable reproduction target.
+
+\subsection{Taxonomy Dimensions}
+
+We organize the literature along four main dimensions.
+
+\begin{itemize}
+  \item \textbf{Candidate filtering}: how aggressively a method shrinks the candidate domain of each query vertex before or during the search.
+  \item \textbf{Matching order}: whether the method carefully arranges the query-vertex visitation order to expose conflicts earlier.
+  \item \textbf{Conflict reuse / failing sets}: whether information from dead ends is remembered and reused to avoid repeating equivalent failures.
+  \item \textbf{System-level acceleration}: whether the method relies on heavier indexing, candidate-space engineering, or holistic execution support beyond local pruning logic.
+\end{itemize}
+
+These dimensions are complementary rather than mutually exclusive. Many strong systems combine several of them, but different methods emphasize different components.
+
+\begin{table*}[t]
+  \caption{A multi-dimensional taxonomy of representative exact subgraph matching methods.}
+  \label{tab:taxonomy}
+  \centering
+  \scriptsize
+  \setlength{\tabcolsep}{2.5pt}
+  \renewcommand{\arraystretch}{1.03}
+  \begin{tabular}{p{0.11\textwidth}ccccp{0.18\textwidth}p{0.13\textwidth}}
+    \toprule
+    Method & Cand. filt. & Order & Conflict reuse & System support & Main idea & Relation to GuP \\
+    \midrule
+    GraphQL~\cite{he2008graphql} & Strong & Moderate & No & Yes & Signature-based pruning and graph access methods & Earlier candidate-space-oriented line \\
+    DAF~\cite{han2019daf} & Strong & Strong & Strong & Moderate & Dynamic programming, adaptive order, and failing sets & Closest classical conflict-aware reference \\
+    Survey study~\cite{sun2020study} & Covers many & Covers many & Covers many & Covers many & In-depth system comparison of in-memory subgraph matching & Broader evaluation vocabulary \\
+    RapidMatch~\cite{sun2021rapidmatch} & Strong & Strong & Limited & Strong & Holistic high-performance execution design & Stronger system emphasis than GuP \\
+    VEQ~\cite{kim2022veq} & Moderate & Moderate & Limited & Moderate & Vertex-equivalence-aware query processing & Alternative redundancy-reduction line \\
+    GuP~\cite{arai2023gup} & Moderate & Moderate & Strong & Moderate & Guard-based pruning using reservation and nogood mechanisms & Our reproduction target \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{Positioning of GuP}
+
+Under this taxonomy, GuP is best understood as a \emph{search-based exact matcher with dynamic state-aware pruning}. In contrast to purely static filtering methods, GuP attaches pruning logic to the current search state: a reservation guard rejects candidate extensions that violate future injectivity pressure, while a nogood guard attempts to reuse information from discovered dead ends~\cite{arai2023gup}. This places GuP between classical candidate-space methods and failing-set-style conflict reuse methods.
+
+GuP is a particularly suitable course-project target for three reasons. First, its two central ideas---reservation and nogood pruning---are conceptually separable, which makes ablation feasible. Second, compared with highly system-heavy engines, GuP can still be studied meaningfully with a correctness-first prototype. Third, its design allows a direct connection between algorithmic ideas and the four metrics required by the project, especially partial mappings and paper-filtered partial mappings.

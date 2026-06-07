@@ -178,4 +178,4 @@ paper/2019/file/09853c7fb1d3f8ee67a61b6bf4a7f8e6-Paper.pdf
 search using hierarchical navigable small world graphs,” 2018. [Online]. Available:
 https://arxiv.org/abs/1603.09320
 [20] Overleaf, “Acm journals primary article template,” https://www.overleaf.com/latex/
-templates/acm-journals-primary-article-template/cpkjqttwbshg, accessed: 2026-05-14.
+templates/acm-journals-primary-article-template/cpkjqttwbshg, accessed: 2026-05-14.paper

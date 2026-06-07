@@ -1,0 +1,34 @@
+\section{Problem Definition and Evaluation Metrics}
+\label{sec:problem-def}
+
+Let the data graph be $G = (V_G, E_G, \ell_G)$ and the query graph be $Q = (V_Q, E_Q, \ell_Q)$, where vertices are associated with discrete labels. The exact subgraph matching problem asks for all injective mappings
+\[
+f: V_Q \rightarrow V_G
+\]
+such that:
+\begin{enumerate}[nosep]
+  \item label preservation holds, that is, $\ell_Q(u) = \ell_G(f(u))$ for every query vertex $u \in V_Q$, and
+  \item edge preservation holds, that is, $(u, u') \in E_Q$ implies $(f(u), f(u')) \in E_G$.
+\end{enumerate}
+
+In our implementation, all graphs are undirected, vertex-labeled, and loop-free. We do not consider edge labels, subgraph homomorphism, or dynamic graph updates in the mandatory part of the project.
+
+\subsection{Required Metrics}
+
+The project specification requires four core metrics. We make the counting rules explicit so that all experimental variants are directly comparable.
+
+\begin{itemize}[nosep]
+  \item \textbf{Runtime (ms)}: wall-clock runtime of the matching procedure, excluding file-loading overhead.
+  \item \textbf{Result mappings}: the number of complete valid embeddings returned by the matcher.
+  \item \textbf{Partial mappings}: the number of successful partial extensions generated during the search.
+  \item \textbf{Paper-filtered partial mappings}: the number of partial extensions pruned specifically by the reproduced paper's filtering strategies.
+\end{itemize}
+
+The last metric deserves special clarification. Our internal counter \texttt{pruned\_partial\_mappings} records \emph{all} rejected extensions, including injectivity and edge-consistency conflicts. However, the assignment specifically asks for the number of partial mappings filtered out by the paper's own strategies. Therefore, in the report we separately extract:
+\begin{itemize}[nosep]
+  \item \texttt{reservation\_guard\_filtered},
+  \item \texttt{nogood\_guard\_filtered}, and
+  \item \texttt{paper\_filter\_filtered\_total} = reservation + nogood.
+\end{itemize}
+
+This distinction is important for grading: the total prune count reflects the whole feasibility-check framework, while the paper-filtered count reflects the contribution of the reproduced GuP-style filtering strategies themselves.

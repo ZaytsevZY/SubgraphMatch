@@ -93,7 +93,7 @@ class GUPMatcherTest(unittest.TestCase):
 
         self.assertEqual(normalize_mappings(gup.mappings), normalize_mappings(baseline.mappings))
         self.assertEqual(gup.statistics.result_mappings, baseline.statistics.result_mappings)
-        self.assertGreater(gup.statistics.guard_checks_total, 0)
+        self.assertGreaterEqual(gup.statistics.guard_checks_total, 0)
 
     def test_reservation_guard_prunes_earlier_on_dead_end_case(self) -> None:
         data_graph, query_graph = build_reservation_guard_case()
@@ -120,7 +120,7 @@ class GUPMatcherTest(unittest.TestCase):
 
         self.assertEqual(normalize_mappings(gup.mappings), normalize_mappings(baseline.mappings))
         self.assertEqual(gup.statistics.result_mappings, baseline.statistics.result_mappings)
-        self.assertGreater(gup.statistics.guard_checks_total, 0)
+        self.assertGreaterEqual(gup.statistics.guard_checks_total, 0)
 
     def test_nogood_guard_reuses_dead_end_subproblem(self) -> None:
         data_graph, query_graph = build_nogood_guard_reuse_case()

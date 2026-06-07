@@ -32,3 +32,5 @@ data/raw/gup-paper/*
 .DS_Store
 .vscode/
 .idea/
+
+temp/*

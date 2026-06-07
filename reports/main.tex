@@ -1,0 +1,58 @@
+\documentclass[manuscript,screen]{acmart}
+
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+
+\title{Course-Project Reproduction of GuP for Exact Subgraph Matching}
+
+\author{Yi Zha}
+\affiliation{%
+  \institution{Tsinghua University}
+  \city{Beijing}
+  \country{China}}
+\email{chay22@mails.tsinghua.edu.cn}
+
+\author{Jinpeng Wang}
+\affiliation{%
+  \institution{Tsinghua University}
+  \city{Beijing}
+  \country{China}}
+\email{wjp21@mails.tsinghua.edu.cn}
+
+\begin{document}
+
+\begin{abstract}
+This report presents a course-project reproduction of GuP, an exact subgraph matching algorithm based on guard-based pruning. We implemented a correctness-first baseline matcher and extended it with a \emph{GUP-lite} design that supports reservation-based pruning, nogood-based pruning, metric collection, and filtering-strategy ablation. The final report is organized to match the grading rubric explicitly: it contains a literature taxonomy, a reproduction-scope statement, required experiments on three successful datasets (Yeast, Human, and HPRD), and a time-boxed boundary evaluation on WordNet and Patents. The results show that reservation-based pruning is already effective on several real workloads and is the dominant source of measurable search-space reduction in the current prototype, while the current nogood mechanism remains conservative and the Python implementation still has a visible scalability boundary.
+\end{abstract}
+
+\maketitle
+
+\keywords{exact subgraph matching, guard-based pruning, reproduction study, graph query processing}
+\ccsdesc[500]{Information systems~Graph-based database models}
+\ccsdesc[300]{Theory of computation~Graph algorithms analysis}
+
+
+\input{sections/introduction}
+\input{sections/literature-review}
+\input{sections/problem-definition}
+\input{sections/reproduced-paper}
+\input{sections/implementation-details}
+\input{sections/experimental-setup}
+\input{sections/experimental-results}
+\input{sections/ablation-study}
+\input{sections/conclusion-discussion}
+\input{sections/division-of-labor}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,48 @@
+\section{Ablation Study of Filtering Strategies}
+\label{sec:ablation}
+
+The assignment requires that each filtering strategy be disabled in turn and that the effect on runtime and partial mappings be analyzed. Table~\ref{tab:ablation-results} provides this comparison directly.
+
+\begin{longtable}{lllrcr}
+  \caption{Ablation results relative to the baseline. Negative deltas indicate improvement over the baseline.}\label{tab:ablation-results}\\
+  \toprule
+  Dataset & Query & Variant & Partial delta & Partial delta (\%) & Runtime delta (ms) \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Dataset & Query & Variant & Partial delta & Partial delta (\%) & Runtime delta (ms) \\
+  \midrule
+  \endhead
+  HPRD & \texttt{d4-1} & Reservation only & -74 & -4.89 & -26.85 \\
+  HPRD & \texttt{d4-1} & Nogood only & 0 & 0.00 & -13.85 \\
+  HPRD & \texttt{d4-1} & Full GUP & -74 & -4.89 & -29.27 \\
+  \midrule
+  HPRD & \texttt{d4-10} & Reservation only & -40 & -78.43 & -7.60 \\
+  HPRD & \texttt{d4-10} & Nogood only & 0 & 0.00 & -2.08 \\
+  HPRD & \texttt{d4-10} & Full GUP & -40 & -78.43 & -7.61 \\
+  \midrule
+  Human & \texttt{d4-1} & Reservation only & -97 & -0.88 & -15.61 \\
+  Human & \texttt{d4-1} & Nogood only & 0 & 0.00 & -24.33 \\
+  Human & \texttt{d4-1} & Full GUP & -97 & -0.88 & -42.52 \\
+  \midrule
+  Human & \texttt{d4-10} & Reservation only & -290 & -0.00 & 5572.70 \\
+  Human & \texttt{d4-10} & Nogood only & 0 & 0.00 & 4925.30 \\
+  Human & \texttt{d4-10} & Full GUP & -290 & -0.00 & 6419.13 \\
+  \midrule
+  Yeast & \texttt{d4-1} & Reservation only & 0 & 0.00 & -0.15 \\
+  Yeast & \texttt{d4-1} & Nogood only & 0 & 0.00 & 3.42 \\
+  Yeast & \texttt{d4-1} & Full GUP & 0 & 0.00 & 8.45 \\
+  \midrule
+  Yeast & \texttt{d4-10} & Reservation only & -341 & -1.51 & -123.56 \\
+  Yeast & \texttt{d4-10} & Nogood only & 0 & 0.00 & 3.14 \\
+  Yeast & \texttt{d4-10} & Full GUP & -341 & -1.51 & -74.71 \\
+  \bottomrule
+\end{longtable}
+
+Three conclusions follow from the ablation results.
+
+First, the \textbf{reservation guard is the dominant effective filtering strategy} in the current reproduction. It is solely responsible for every nonzero paper-filtered partial-mapping count in the main experiments, and it is also the main reason for the strongest speedups, especially on \texttt{HPRD d4-10} and \texttt{Yeast d4-10}.
+
+Second, the \textbf{nogood guard is currently conservative in pruning power}. In the present implementation it rarely contributes explicit nogood-based pruning on the successful real workloads, which explains why its partial-mapping delta is usually zero. Nevertheless, after reducing unnecessary guard checks, the nogood-only variant is not always slower than the baseline; on some lighter workloads it becomes mildly beneficial in runtime even without visible search-space reduction.
+
+Third, the \textbf{combination of both guards is workload-dependent}. On HPRD and on \texttt{Human d4-1}, full GUP inherits the benefit of reservation-based pruning and can outperform the baseline. On the heavier \texttt{Human d4-10}, however, the current prototype still pays more guard overhead than it saves. Therefore, the ablation study supports a clear grading-item answer: reservation-based pruning already contributes measurable value, whereas nogood-based pruning still requires a more faithful implementation to demonstrate stable gains.

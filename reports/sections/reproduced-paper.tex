@@ -1,0 +1,36 @@
+\section{Reproduced Paper and Reproduction Scope}
+\label{sec:paper-idea}
+
+The selected paper is \emph{GuP: Fast Subgraph Matching by Guard-Based Pruning}~\cite{arai2023gup}. The central insight of GuP is that many dead-end partial embeddings can be rejected before an explicit structural violation is reached. To achieve this, GuP augments the search with guard-based pruning.
+
+\subsection{Main Idea of GuP}
+
+The first mechanism is the \emph{reservation guard}. Intuitively, when a candidate assignment $(u,v)$ is made, some future query vertices may already be forced to consume a small set of data vertices. If one of those data vertices has already been used too early, the extension can be rejected immediately.
+
+The second mechanism is the \emph{nogood guard}. Instead of relying only on local consistency checks, the search records signatures of dead-end situations and uses them to reject future extensions that induce the same remaining subproblem. In the original paper, this mechanism is tightly integrated with the guarded candidate space and richer guard discovery rules.
+
+\subsection{Reproduction Scope}
+
+Table~\ref{tab:repro-scope} summarizes which original GuP components were reproduced in this project.
+
+\begin{table*}[t]
+  \caption{Reproduction scope of the course-project GuP implementation.}
+  \label{tab:repro-scope}
+  \centering
+  \small
+  \begin{tabular}{p{0.20\textwidth}p{0.10\textwidth}p{0.28\textwidth}p{0.12\textwidth}p{0.20\textwidth}}
+    \toprule
+    Original GuP component & Implemented & Our design & Faithfulness & Expected impact on results \\
+    \midrule
+    Baseline exact search & Yes & Depth-first backtracking matcher & High & Shared correctness reference \\
+    Candidate generation & Yes & Label + degree filtering & Partial & Weaker than richer candidate-space engineering \\
+    Matching order & Yes & Simple order by candidate size, degree, and id & Partial & May reduce pruning strength on harder workloads \\
+    Reservation guard & Yes & Precomputed small reservation sets with Hall-style reasoning & Medium & Main source of search-space reduction in our results \\
+    Nogood guard & Yes & Conservative future-subproblem memoization & Partial & Safe but weaker than the original full mechanism \\
+    Guarded candidate-space engineering & Partial & Only the minimum structures required by the prototype & Partial & Limits peak performance and scalability \\
+    Low-level system optimization & No & Python correctness-first prototype & Low & Strongly affects wall-clock competitiveness on heavy workloads \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+The most important boundary is therefore not correctness but \emph{faithfulness of engineering detail}. Our reproduction is sufficient for course-project analysis of the main algorithmic ideas and for ablation of the two guard mechanisms, but it should not be interpreted as a claim of matching the original production-level performance of GuP on every workload.

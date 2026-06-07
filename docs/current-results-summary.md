@@ -130,7 +130,23 @@
 - 这一次 `reservation_only` 与 `full GUP` 都已经在 wall-clock time 上优于 baseline
 - 说明当前改进后的 `reservation_guard` 已经开始真正体现论文路线的效果
 
-### 6.3 当前最新判断
+### 6.3 Human / query_dense_4_10 after guard-selective optimization
+- baseline: `partial_mappings = 12937898`, `runtime_ms ≈ 49973.50`
+- reservation_only: `12937608`, `≈ 55638.53`
+- nogood_only: `12937898`, `≈ 37932.96`
+- full GUP: `12937608`, `≈ 41744.04`
+
+当前解释：
+- `reservation_guard` 仍然只能小幅减少搜索空间（降低 `290` 个 `partial_mappings`）
+- 但将 `nogood_guard` 改成“只在相关 query vertex 上激活”之后，`nogood_only` 不再是纯负担
+- 更重要的是，`full GUP` 已经在该真实重 query 上明显优于 baseline 的 wall-clock time
+
+这说明：
+
+1. 之前 `full GUP` 很慢，确实有一部分是实现层的空检查开销，而不是算法路线本身的问题
+2. 当前 `nogood_guard` 虽然仍然没有体现强 pruning，但在去掉无效检查后，不再像之前那样严重拖累运行时间
+
+### 6.4 当前最新判断
 
 最新结果比上一轮更乐观：
 
@@ -138,6 +154,7 @@
 - 现在的结论应改为：
 
 > 改进后的 `reservation_guard` 已经在部分真实查询上同时减少搜索空间，并开始在运行时间上优于 baseline。
+> 此外，经过 guard-selective 优化后，`full GUP` 在某些较重的真实 query 上也开始明显优于 baseline。
 
 但仍需保留两个限定：
 
