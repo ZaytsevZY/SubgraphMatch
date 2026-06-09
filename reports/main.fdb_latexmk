@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1780853978.51392 "main.aux" "main.bbl" "main" 1780853979.54971 0
+["bibtex main"] 1780987612.56047 "main.aux" "main.bbl" "main" 1780987613.74542 0
   "./ACM-Reference-Format.bst" 1780815367.49985 93560 7091f2b0543d2c8bfe2e82ce5d54a029 ""
   "./references.bib" 1780847268.80743 2602 8dfd025a3bf9d32b24f485c756a8d236 ""
-  "main.aux" 1780853979.27471 9972 7affd81514280f9c507285f560f238b7 "pdflatex"
+  "main.aux" 1780987613.48413 10523 47645fd95f6c6528328f3fc48c6ab48c "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1780853978.60081 "main.tex" "main.pdf" "main" 1780853979.54984 0
+["pdflatex"] 1780987612.64966 "main.tex" "main.pdf" "main" 1780987613.74566 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc" 1558214095 7693 0f2dce6d313c82989ec3a67fc24df2a0 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
@@ -204,20 +204,21 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1780820233 3636778 6e8fcfe83a4dee97138c6c6ecfc524c3 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acmart.cls" 1780815367.49291 121673 237171c824d412bde1a66cc8867ba17f ""
-  "main.aux" 1780853979.27471 9972 7affd81514280f9c507285f560f238b7 "pdflatex"
-  "main.bbl" 1780853978.59337 5859 cf6e22864b8679a800a55f32d3cb794e "bibtex main"
-  "main.out" 1780853979.28402 6754 80538706c2a0d42432d9426e1f88fc27 "pdflatex"
-  "main.tex" 1780852254.99939 2240 b9251ddc640165e766c0e0b2cbcef414 ""
+  "main.aux" 1780987613.48413 10523 47645fd95f6c6528328f3fc48c6ab48c "pdflatex"
+  "main.bbl" 1780987612.64692 5859 cf6e22864b8679a800a55f32d3cb794e "bibtex main"
+  "main.out" 1780987613.48493 7244 2aec4a59d1c2d98a128741cd89436b48 "pdflatex"
+  "main.tex" 1780987528.66028 2298 b16b1630482191f9cf82118ca9d2e2b2 ""
   "sections/ablation-study.tex" 1780852255.01616 3255 1692f16fbe2953303e0043e9f1907fa8 ""
-  "sections/conclusion-discussion.tex" 1780852255.02128 2453 04307fb6662d1628757a1ef6d39c85e4 ""
+  "sections/conclusion-discussion.tex" 1780987566.48727 2749 d1d9e7c94fdba010061d2e55f9e56ed2 ""
   "sections/division-of-labor.tex" 1780820884.94561 454 a7911f18b37b930e59a0d3df6527772f ""
-  "sections/experimental-results.tex" 1780852255.01124 4975 f70c2412b92534792f40a40cf764b1a5 ""
-  "sections/experimental-setup.tex" 1780852087.84207 2664 d706b9df7c6bdcf5f82bb61471ae56c5 ""
-  "sections/implementation-details.tex" 1780852087.84196 4719 e25a6877dd16b3b64c603d2342170a2d ""
-  "sections/introduction.tex" 1780852255.0057 3774 ec7c1f2d7d0881de74be85ce39778b37 ""
-  "sections/literature-review.tex" 1780853977.19589 11981 e4c929748b7e77f1e673b907f0decdb9 ""
-  "sections/problem-definition.tex" 1780852087.84163 2253 d0bff285b362efb83b1a5204dc946a32 ""
-  "sections/reproduced-paper.tex" 1780852087.84184 2947 0f8d89c522ed217d011639727922a782 ""
+  "sections/experimental-results.tex" 1780987611.30125 4819 e5b1fc4a4a6c03b9db8657da5245a809 ""
+  "sections/experimental-setup.tex" 1780987566.4867 2468 f1bd205ad14126a21eea1beecc2f39cf ""
+  "sections/implementation-details.tex" 1780987611.30172 4385 4b3963e7f65d55de5bc07ce0e6c47847 ""
+  "sections/introduction.tex" 1780987566.48573 2238 48ed008b0b9ab78f24d843fac01754bf ""
+  "sections/literature-review.tex" 1780987611.3008 10832 31ef94e1edeb5328afc8804d245bb063 ""
+  "sections/optional-result-reuse.tex" 1780987566.48755 4005 1043d8c9e633419a617ba6d645a9c3fc ""
+  "sections/problem-definition.tex" 1780987566.48778 2235 02701e1c05eff7a2171c2c54f53ae8f8 ""
+  "sections/reproduced-paper.tex" 1780987566.48622 2951 c19c261739051ea12f949fad246267e5 ""
   (generated)
   "main.aux"
   "main.log"

@@ -1,0 +1,42 @@
+\section{Optional Extension: Result Reuse for Related Queries}
+\label{sec:optional-reuse}
+
+We also study whether a later query can reuse the result of an earlier related query. We focus on a restricted but practically meaningful workload pattern: the data graph is fixed, and the next query $Q_{next}$ is obtained from the previous query $Q_{prev}$ by adding exactly one edge while keeping the vertex set and all labels unchanged.
+
+\subsection{Restricted Setting and Reuse Rule}
+
+This setting models a common query-refinement workflow: a user first evaluates a looser pattern and then tightens it by adding one missing structural constraint. In this case, every valid result mapping of $Q_{next}$ must already be a valid result mapping of $Q_{prev}$. Therefore, instead of rerunning full subgraph matching from scratch, we only need to scan the already materialized result mappings of $Q_{prev}$ and test whether the images of the newly added query edge also form an edge in the data graph.
+
+Formally, if $Q_{next}$ is obtained by adding one query edge $(u,v)$ to $Q_{prev}$, then
+\[
+\mathrm{Result}(Q_{next}) = \{ f \in \mathrm{Result}(Q_{prev}) \mid (f(u), f(v)) \in E_G \}.
+\]
+The experiments compare the \emph{incremental reuse cost} against the cost of evaluating $Q_{next}$ from scratch. Since the result mappings of $Q_{prev}$ are already available, the comparison focuses on the cost of the next query.
+
+\subsection{Optional-Extension Results}
+
+Table~\ref{tab:result-reuse} summarizes the optional-extension experiments. We report one toy query pair and two real query pairs. In every case, the reused result set exactly matches the scratch result set, confirming correctness.
+
+\begin{table*}[t]
+  \caption{Optional extension: result reuse for related queries with one added query edge. ``Filtered'' counts how many previous-query results are removed by the new edge constraint.}
+  \label{tab:result-reuse}
+  \centering
+  \small
+  \begin{tabular}{llrrrrrc}
+    \toprule
+    Dataset & Query pair & Prev results & Reuse results & Scratch results & Filtered & Reuse time (ms) & Scratch time (ms) \\
+    \midrule
+    Toy & \texttt{prev -> next} & 2 & 2 & 2 & 0 & 0.00075 & 0.00546 \\
+    HPRD & \texttt{d4-10-minus-e01 -> d4-10} & 4 & 4 & 4 & 0 & 0.00250 & 2.68837 \\
+    Human & \texttt{d4-1-minus-e01 -> d4-1} & 10384 & 10312 & 10312 & 72 & 1.60363 & 66.45746 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+The optional-extension results support three observations. First, the correctness condition is cleanly validated: for all three query pairs, the reused result set is identical to the scratch result set. This confirms that the added-edge filter is sound for the restricted query relation considered here.
+
+Second, even when the new edge does not change the final result count, reuse can still be much cheaper than rerunning full matching. The HPRD pair is the clearest example: the final result count remains four before and after the added edge, but the incremental reuse cost is still far smaller than the scratch cost because the latter must rebuild the full search process for the tighter query.
+
+Third, the Human pair shows the most meaningful workload-level benefit. The looser query returns 10,384 result mappings, and the added edge filters out 72 of them, leaving exactly the 10,312 mappings found by scratch evaluation. More importantly, the incremental reuse step takes only about 1.60 ms, compared with about 66.46 ms for scratch evaluation of the refined query. This is the strongest evidence that query-result reuse can substantially accelerate interactive query refinement when related queries are evaluated on the same data graph.
+
+The current extension only supports a very restricted relation between successive queries. It does not yet handle vertex additions, arbitrary query rewrites, or cross-query reuse of partial mappings and nogood information. Even within this narrow setting, the experiments show that result reuse can be a practical workload-level optimization.

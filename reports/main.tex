@@ -12,7 +12,7 @@
 \usepackage{hyperref}
 \usepackage{array}
 
-\title{A Course-Project Reproduction Study of GuP for Exact Subgraph Matching}
+\title{A Reproduction Study of GuP for Exact Subgraph Matching}
 
 \author{Yi Zha}
 \affiliation{%
@@ -31,7 +31,7 @@
 \begin{document}
 
 \begin{abstract}
-This report presents a course-project reproduction study of GuP, an exact subgraph matching method based on guard-based pruning. We implemented a correctness-oriented baseline matcher and extended it with a \emph{GUP-lite} design that supports reservation-based pruning, nogood-based pruning, metric collection, and filtering-strategy ablation. The study includes a literature taxonomy, a clear statement of reproduction scope, experiments on three successful datasets (Yeast, Human, and HPRD), and a time-boxed boundary evaluation on WordNet and Patents. Overall, reservation-based pruning is already effective on several real workloads and is the main source of measurable search-space reduction in our prototype, whereas the current nogood mechanism remains conservative and the Python implementation still shows a clear scalability boundary.
+This paper presents a reproduction study of GuP, an exact subgraph matching method based on guard-based pruning. We implemented a correctness-oriented baseline matcher and extended it with a \emph{GUP-lite} design that supports reservation-based pruning, nogood-based pruning, metric collection, and filtering-strategy ablation. The study includes a literature taxonomy, a clear statement of reproduction scope, experiments on three successful datasets (Yeast, Human, and HPRD), a small optional extension on query-result reuse, and a time-boxed boundary evaluation on WordNet and Patents. Overall, reservation-based pruning is already effective on several real workloads and is the main source of measurable search-space reduction in our prototype, whereas the current nogood mechanism remains conservative and the Python implementation still shows a clear scalability boundary.
 \end{abstract}
 
 \maketitle
@@ -49,6 +49,7 @@ This report presents a course-project reproduction study of GuP, an exact subgra
 \input{sections/experimental-setup}
 \input{sections/experimental-results}
 \input{sections/ablation-study}
+\input{sections/optional-result-reuse}
 \input{sections/conclusion-discussion}
 \input{sections/division-of-labor}
 

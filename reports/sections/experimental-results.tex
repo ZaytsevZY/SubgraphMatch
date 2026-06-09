@@ -1,7 +1,7 @@
 \section{Required Experimental Results on Multiple Datasets}
 \label{sec:exp-results}
 
-Table~\ref{tab:required-metrics} reports the mandatory evaluation results on the three successful datasets. The table lists the four required metrics: runtime, result mappings, partial mappings, and the number of partial mappings filtered by the reproduced paper's strategies.
+Table~\ref{tab:required-metrics} reports the main results on the three successful datasets. The table lists runtime, result mappings, partial mappings, and the number of partial mappings filtered by the reproduced paper's strategies.
 
 \begin{longtable}{lllrccc}
   \caption{Required metrics on the three successful datasets. `Paper-filtered PM' denotes the number of partial mappings pruned by GuP-style filtering strategies only.}\label{tab:required-metrics}\\
@@ -45,7 +45,7 @@ Table~\ref{tab:required-metrics} reports the mandatory evaluation results on the
   \bottomrule
 \end{longtable}
 
-Taken together, the three successful datasets support three main observations. First, the report now satisfies the ``3--4 datasets'' requirement with \texttt{Yeast}, \texttt{Human}, and \texttt{HPRD} as complete successful datasets.
+Taken together, the three successful datasets support three main observations. First, \texttt{Yeast}, \texttt{Human}, and \texttt{HPRD} provide a balanced view across lighter and heavier workloads.
 
 Second, among the reproduced paper strategies, only the reservation guard contributes nonzero paper-filtered partial mappings consistently on the real workloads considered here.
 
@@ -56,7 +56,7 @@ HPRD is especially informative because it fills the gap between the smaller data
 The results on \texttt{Human} and \texttt{Yeast} are more mixed, but still informative. On \texttt{Human d4-1}, full GUP achieves the best runtime among all tested variants. On \texttt{Yeast d4-10}, both reservation-only and full GUP improve runtime, and reservation-only gives the strongest speedup. By contrast, on \texttt{Human d4-10}, the reservation guard still reduces the search space slightly, but the prototype does not convert that gain into lower runtime.
 
 \begin{table}[t]
-  \caption{Time-boxed boundary datasets under the 120-second protocol.}
+  \caption{Boundary datasets under the 120-second limit.}
   \label{tab:boundary-datasets}
   \centering
   \small
@@ -72,4 +72,4 @@ The results on \texttt{Human} and \texttt{Yeast} are more mixed, but still infor
   \end{tabular}
 \end{table}
 
-Table~\ref{tab:boundary-datasets} records the boundary workloads explicitly rather than omitting them. These runs do not contribute complete metric rows, but they remain important because they mark the scalability range of the Python prototype. The report therefore includes both the required successful datasets and a transparent account of the workloads that remain beyond the current implementation boundary.
+Table~\ref{tab:boundary-datasets} records the boundary workloads explicitly. These runs do not contribute complete metric rows, but they remain important because they mark the scalability range of the Python prototype. Together, these results show both the workloads handled well by the prototype and those that remain beyond its current boundary.
