@@ -11,26 +11,28 @@ The second mechanism is the \emph{nogood guard}. Instead of relying only on loca
 
 \subsection{Reproduction Scope}
 
-Table~\ref{tab:repro-scope} summarizes which original GuP components were reproduced in this project.
+Table~\ref{tab:repro-scope} summarizes the reproduced components of GuP.
 
 \begin{table*}[t]
   \caption{Reproduction scope of our GuP implementation.}
   \label{tab:repro-scope}
   \centering
-  \small
-  \begin{tabular}{p{0.20\textwidth}p{0.10\textwidth}p{0.28\textwidth}p{0.12\textwidth}p{0.20\textwidth}}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1.03}
+  \begin{tabular}{p{0.18\textwidth}p{0.08\textwidth}p{0.27\textwidth}p{0.11\textwidth}p{0.21\textwidth}}
     \toprule
-    Original GuP component & Implemented & Our design & Faithfulness & Expected impact on results \\
+    Original GuP component & Impl. & Our design & Faithfulness & Expected impact on results \\
     \midrule
     Baseline exact search & Yes & Depth-first backtracking matcher & High & Shared correctness reference \\
     Candidate generation & Yes & Label + degree filtering & Partial & Weaker than richer candidate-space engineering \\
-    Matching order & Yes & Simple order by candidate size, degree, and id & Partial & May reduce pruning strength on harder workloads \\
+    Matching order & Yes & Order by candidate size, degree, and id & Partial & May reduce pruning strength on harder workloads \\
     Reservation guard & Yes & Precomputed small reservation sets with Hall-style reasoning & Medium & Main source of search-space reduction in our results \\
     Nogood guard & Yes & Conservative future-subproblem memoization & Partial & Safe but weaker than the original full mechanism \\
-    Guarded candidate-space engineering & Partial & Only the minimum structures required by the prototype & Partial & Limits peak performance and scalability \\
+    Guarded candidate space & Partial & Only the minimum structures required by the prototype & Partial & Limits peak performance and scalability \\
     Low-level system optimization & No & Python correctness-first prototype & Low & Strongly affects wall-clock competitiveness on heavy workloads \\
     \bottomrule
   \end{tabular}
 \end{table*}
 
-The main gap from the original system lies in engineering detail rather than matching semantics. The reproduction is sufficient for analyzing the two guard mechanisms and their effect on search-space reduction, while large performance differences on heavy workloads are still expected from the simplified candidate-space machinery and the Python implementation.
+The main gap from the original system lies in engineering detail. The reproduced system is sufficient for analyzing the two guard mechanisms and their effect on search-space reduction, while large performance differences on heavy workloads are still expected from the simplified candidate-space machinery and the Python implementation.

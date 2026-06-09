@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.7)  9 JUN 2026 14:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.7)  9 JUN 2026 14:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1164,100 +1164,67 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 )
 (./sections/reproduced-paper.tex
+Underfull \hbox (badness 2846) in paragraph at lines 29--30
+[]|\T1/LinuxLibertineT-TLF/m/n/6 (+20) May re-duce prun-ing strength on
+ []
+
+) (./sections/implementation-details.tex [5.5{/usr/local/texlive/2026/texmf-dis
+t/fonts/enc/dvips/inconsolata/i4-t1-4.enc}] [6.6])
+(./sections/experimental-setup.tex
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 21.
+(Font)              scaled to size 6.0pt on input line 36.
 LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 6.0pt on input line 21.
+(Font)              scaled to size 6.0pt on input line 36.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 6.0pt on input line 21.
+(Font)              scaled to size 6.0pt on input line 36.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 6.0pt on input line 21.
+(Font)              scaled to size 6.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 6.0pt on input line 21.
+(Font)              scaled to size 6.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 6.0pt on input line 21.
+(Font)              scaled to size 6.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 6.0pt on input line 21.
+(Font)              scaled to size 6.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 8.0pt on input line 21.
+(Font)              scaled to size 8.0pt on input line 36.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 6.0pt on input line 21.
-
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
-[]|\T1/LinuxLibertineT-TLF/m/n/8 (+20) Weaker than richer
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 27--28
-[]|\T1/LinuxLibertineT-TLF/m/n/8 (+20) May re-duce prun-ing
- []
-
-
-Underfull \hbox (badness 5756) in paragraph at lines 28--29
-[]|\T1/LinuxLibertineT-TLF/m/n/8 (+20) Main source of search-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 29--29
-[]|\T1/LinuxLibertineT-TLF/m/n/8 (+20) Conservative future-subproblem
- []
-
-
-Underfull \hbox (badness 1215) in paragraph at lines 30--30
-[]|\T1/LinuxLibertineT-TLF/m/n/8 (+20) Guarded candidate-space
- []
-
-
-Underfull \hbox (badness 2310) in paragraph at lines 30--30
-[]|\T1/LinuxLibertineT-TLF/m/n/8 (+20) Only the min-i-mum struc-tures re-
- []
-
-
-Overfull \hbox (6.99687pt too wide) in paragraph at lines 21--34
- [][] 
- []
-
-) (./sections/implementation-details.tex
-Underfull \vbox (badness 7397) has occurred while \output is active []
-
- [5.5{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.en
-c}] [6.6])
-(./sections/experimental-setup.tex [7.7]) (./sections/experimental-results.tex
-ignored: I
-nfinite glue shrinkage found in box being split
-[8.8]
+(Font)              scaled to size 6.0pt on input line 36.
+) (./sections/experimental-results.tex
+[7.7]
+ignored: Infinite glue shrinkage found in box being split [8.8]
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 8.0pt on input line 67.
 ) (./sections/ablation-study.tex
-Underfull \vbox (badness 1831) has occurred while \output is active []
+ignored: Infinite glue shrinkage found in box being spli
+t [9.9])
+(./sections/optional-result-reuse.tex
+Underfull \vbox (badness 2393) has occurred while \output is active []
 
- [9.9])
-(./sections/optional-result-reuse.tex [10.10]
-Overfull \hbox (33.52312pt too wide) in paragraph at lines 25--34
- [][] 
- []
+ [10.10]
+LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
+(Font)              scaled to size 6.0pt on input line 30.
+)
+(./sections/conclusion-discussion.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-) (./sections/conclusion-discussion.tex [11.11])
+ [11.11])
 (./sections/division-of-labor.tex) (./main.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 47.
-
-Underfull \vbox (badness 1917) has occurred while \output is active []
-
  [12.12])
 
 Class acmart Warning: ACM reference format is mandatory 
@@ -1277,31 +1244,32 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2AEC4A59D1C2D98A128741CD89436B48;7244.
+(rerunfilecheck)             Checksum: 3F1982FA71CDA9B5B635E7EACBA2552E;7178.
  ) 
 Here is how much of TeX's memory you used:
- 22019 strings out of 467525
- 357354 string characters out of 5418983
- 842652 words of memory out of 5000000
- 49918 multiletter control sequences out of 15000+600000
- 783329 words of font info for 365 fonts, out of 8000000 for 9000
+ 22032 strings out of 467525
+ 357563 string characters out of 5418983
+ 839685 words of memory out of 5000000
+ 49920 multiletter control sequences out of 15000+600000
+ 786418 words of font info for 375 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 90i,12n,131p,1001b,712s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,12n,131p,1001b,716s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/Liberti
 neMathMI.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/Liber
-tineMathMI7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/libertin
-e/LinBiolinumT.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/liber
-tine/LinBiolinumTB.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/l
-ibertine/LinLibertineT.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/publ
-ic/libertine/LinLibertineTB.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1
-/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2026/texmf-dist/fonts/
-type1/public/newtx/txmiaX.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/p
-ublic/newtx/txsys.pfb>
-Output written on main.pdf (13 pages, 482657 bytes).
+tineMathMI5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/Li
+bertineMathMI7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/liber
+tine/LinBiolinumT.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/li
+bertine/LinBiolinumTB.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/publi
+c/libertine/LinLibertineT.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/p
+ublic/libertine/LinLibertineTB.pfb></usr/local/texlive/2026/texmf-dist/fonts/ty
+pe1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2026/texmf-dist/fon
+ts/type1/public/newtx/txmiaX.pfb></usr/local/texlive/2026/texmf-dist/fonts/type
+1/public/newtx/txsys.pfb>
+Output written on main.pdf (13 pages, 484531 bytes).
 PDF statistics:
- 355 PDF objects out of 1000 (max. 8388607)
- 312 compressed objects within 4 object streams
+ 360 PDF objects out of 1000 (max. 8388607)
+ 315 compressed objects within 4 object streams
  71 named destinations out of 1000 (max. 500000)
- 75041 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 77601 words of extra memory for PDF output out of 89155 (max. 10000000)
 
