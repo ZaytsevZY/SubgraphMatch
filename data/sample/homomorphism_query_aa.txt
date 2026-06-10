@@ -1,0 +1,4 @@
+# A-A edge query for homomorphism demo
+v 0 A
+v 1 A
+e 0 1

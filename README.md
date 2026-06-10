@@ -224,6 +224,73 @@ python3 scripts/build_report_tables.py \
                   'wordnet-query-*-timeboxed.json' 'patents-query-*-timeboxed.json'
 ```
 
+### 选做 6：单边动态维护 result mapping
+
+数据图插入/删除一条边时，增量维护 result mapping 并给出结果差异（新增/删除的映射），无需从头重算。核心代码在 `src/subgraph_match/dynamic/`。
+
+先生成确定性的演示图（脚本可复现，无需下载真实数据集）：
+
+```bash
+python3 scripts/make_dynamic_demo_graph.py
+```
+
+运行单次动态维护实验（自动选取一条被某个匹配使用的边）：
+
+```bash
+# 删除一条边，统计被删除的 result mapping，并与从头重算对比
+python3 scripts/run_dynamic_experiment.py \
+  --input-format toy \
+  --data-file data/sample/dynamic_demo_graph.txt \
+  --query-file data/sample/dynamic_demo_query_path.txt \
+  --change-type delete --dataset-name demo_stress --query-name path_abc \
+  --output-file results/raw/dyn-demo-delete.json
+```
+
+一次性跑 insert + delete 并汇总成表：
+
+```bash
+python3 scripts/run_dynamic_batch.py \
+  --input-format toy \
+  --data-file data/sample/dynamic_demo_graph.txt \
+  --query-file data/sample/dynamic_demo_query_path.txt \
+  --dataset-name demo_stress --query-name path_abc --run-tag dyn-demo
+```
+
+对真实 `.graph` 数据集（放好数据后）同样适用，只需改用 `--input-format graph` 并指定 `--edge a,b` 或让脚本自动选边：
+
+```bash
+python3 scripts/run_dynamic_batch.py \
+  --input-format graph \
+  --data-file data/raw/gup-paper/extracted/dataset/yeast/data_graph/yeast.graph \
+  --query-file data/raw/gup-paper/extracted/dataset/yeast/query_graph/query_dense_4_1.graph \
+  --dataset-name yeast --query-name query_dense_4_1 --run-tag dyn-yeast-d41
+```
+
+### 选做 7：子图同态
+
+子图同态放宽了精确匹配：映射不要求单射，边约束在 `E_G^+ = E_G ∪ {自环}` 上判定（即查询边 `(u,v)` 满足 `f(u)=f(v)` 或 `(f(u),f(v))∈E_G`）。核心代码在 `src/subgraph_match/homomorphism/`。关键点：同态下**度数过滤不成立**（多个查询邻居可折叠到同一数据点或经自环映射），因此候选只按标签过滤。
+
+内置正确性交叉校验：同态结果中**单射的那部分恰好等于子图同构**结果。
+
+先生成确定性的同态演示图（15 个大小为 6 的全 A 团）：
+
+```bash
+python3 scripts/make_homomorphism_demo_graph.py
+```
+
+运行同态实验，并与同构对比：
+
+```bash
+python3 scripts/run_homomorphism_experiment.py \
+  --input-format toy \
+  --data-file data/sample/homomorphism_demo_graph.txt \
+  --query-file data/sample/homomorphism_demo_query_triangle.txt \
+  --dataset-name hom_demo --query-name triangle_aaa \
+  --output-file results/raw/hom-demo-triangle.json
+```
+
+输出含：同态映射数、同构映射数、单射同态数（应等于同构）、非单射同态数、各自 partial mappings 与运行时。真实 `.graph` 数据集同样可用 `--input-format graph`。
+
 当前 baseline 的定位是：
 
 - 先把统一接口、计数器和实验输出跑通

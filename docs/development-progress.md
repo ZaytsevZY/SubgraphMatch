@@ -150,6 +150,39 @@
 - 新增改进后结果表：`results/tables/hall-human-d4-summary.csv`、`results/tables/hall-yeast-d4-summary.csv`
 - 新增 guard-selective 结果表：`results/tables/nogsel-human-d410-summary.csv`
 
+## 选做项实现
+
+### 选做 5：结果可复用性（已完成）
+- 已实现 `src/subgraph_match/reuse/`，支持"查询加一条边"的结果复用与正确性校验
+
+### 选做 6：单边动态维护 result mapping（已完成）
+- 设计并证明了核心性质：单边更新只影响"使用该边"的映射，且插入单调增、删除单调减
+- 实现 `src/subgraph_match/dynamic/`：
+  - `edge_update.py`：不可变式的单边插入/删除（返回新图，不改原图）
+  - `incremental.py`：anchored enumeration 计算受影响映射集 + 增量维护规则
+  - `dynamic_metrics.py`：`DynamicMaintenanceResult` 统计对象
+- 新增脚本：
+  - `scripts/run_dynamic_experiment.py`（单次 insert/delete 实验 + 与从头重算对比）
+  - `scripts/run_dynamic_batch.py`（一次跑 insert+delete 并汇总 CSV）
+  - `scripts/make_dynamic_demo_graph.py`（确定性合成演示图生成器）
+- 新增测试 `tests/test_dynamic_maintenance.py`：含**穷举式**正确性验证（小图上对每条边的插入/删除都与从头重算比对），9 个用例全部通过
+- 新增报告章节 `reports/sections/optional-dynamic-maintenance.tex`，已接入 `main.tex`
+- 实测：合成演示图（4320 个匹配）上增量维护比从头重算快 ~261–286×，结果完全一致；toy 图上因固定开销略慢（已如实记录）
+- 真实 `.graph` 数据集（Yeast/Human/HPRD）可用同一脚本 `--input-format graph` 跑，下载数据后即可补表
+
+### 选做 7：子图同态（已完成）
+- 按作业定义实现：非单射 + 边约束在 `E_G^+ = E_G ∪ {自环}` 上判定（`f(u)=f(v)` 或 `(f(u),f(v))∈E_G`）
+- 实现 `src/subgraph_match/homomorphism/`：
+  - `homomorphism_matcher.py`：去掉单射约束、改用 `E_G^+` 边检查；候选**仅按标签**（度数过滤对同态不成立，已在文档与代码注释中说明原因）
+- 新增脚本 `scripts/run_homomorphism_experiment.py`（同态 vs 同构对比）、`scripts/make_homomorphism_demo_graph.py`（确定性团结构演示图）
+- 新增测试 `tests/test_homomorphism_matcher.py`（6 用例全过）：含独立暴力 oracle、`单射同态==同构` 交叉校验、自环折叠与孤立点边界
+- 新增报告章节 `reports/sections/optional-homomorphism.tex`，已接入 `main.tex`
+- 实测：toy `A-A` 查询同态 4 / 同构 2 / 非单射 2；演示图三角查询 `A-A-A` 同态 3240（=15·6³）/ 同构 1800 / 非单射 1440，单射同态恰等于同构（正确性 True）
+
+## 决策记录补充
+- 2026-06-09：完成选做 6（单边动态维护），采用 anchored-enumeration 增量算法；报告新增对应章节，并更新 problem-definition 中"不考虑动态更新"的表述
+- 2026-06-09：完成选做 7（子图同态），基于回溯框架去单射 + `E_G^+` 边判定，候选仅按标签；以"单射同态==同构"作为内置正确性校验
+
 ## 建议下一步
 1. 按 `configs/gup_real_workloads.yaml` 对 4 组 workload 分别做小规模 smoke run。
 2. 重新设计 `wordnet / patents` 的轻量 smoke 方案，优先尝试更容易的 sparse-8 或可控 timeout 配置。

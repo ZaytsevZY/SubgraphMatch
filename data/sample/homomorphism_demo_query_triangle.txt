@@ -1,0 +1,7 @@
+# Triangle query A-A-A used by the homomorphism demo.
+v 0 A
+v 1 A
+v 2 A
+e 0 1
+e 1 2
+e 0 2

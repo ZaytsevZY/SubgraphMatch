@@ -39,9 +39,16 @@ To assess the contribution of each filtering strategy, we disable them in turn a
   \bottomrule
 \end{longtable}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.82\linewidth]{figures/ablation.pdf}
+  \caption{Partial-mapping reduction relative to the baseline for each filtering strategy across the six real workloads. The reservation guard accounts for all measurable search-space reduction, the nogood guard contributes none on these workloads, and the effect is strongest on \texttt{HPRD d4-10}. Source: \texttt{reports/figures/plot\_ablation.py} (data \texttt{ablation\_data.csv}).}
+  \label{fig:ablation}
+\end{figure}
+
 The ablation results support three concise conclusions.
 
-First, the \textbf{reservation guard is the dominant effective filtering strategy} in our reproduction. It is responsible for every nonzero paper-filtered partial-mapping count in the main experiments and for the strongest speedups, especially on \texttt{HPRD d4-10} and \texttt{Yeast d4-10}.
+First, the \textbf{reservation guard is the dominant effective filtering strategy} in our reproduction (Figure~\ref{fig:ablation}). It is responsible for every nonzero paper-filtered partial-mapping count in the main experiments and for the strongest speedups, especially on \texttt{HPRD d4-10} and \texttt{Yeast d4-10}.
 
 Second, the \textbf{nogood guard remains conservative in pruning power}. In the present implementation it rarely contributes explicit nogood-based pruning on the successful real workloads, which is why its partial-mapping delta is usually zero. Even so, after reducing unnecessary guard checks, the nogood-only variant is not always slower than the baseline; on some lighter workloads it is mildly beneficial in runtime even without visible search-space reduction.
 

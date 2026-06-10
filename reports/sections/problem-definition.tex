@@ -11,7 +11,7 @@ such that:
   \item edge preservation holds, that is, $(u, u') \in E_Q$ implies $(f(u), f(u')) \in E_G$.
 \end{enumerate}
 
-In our implementation, all graphs are undirected, vertex-labeled, and loop-free. This implementation does not consider edge labels, subgraph homomorphism, or dynamic graph updates.
+In our implementation, all graphs are undirected, vertex-labeled, and loop-free. The core reproduction does not consider edge labels. Subgraph homomorphism and dynamic graph updates are out of scope for the core reproduction but are addressed as optional extensions: Section~\ref{sec:optional-homomorphism} implements subgraph homomorphism under the augmented edge set $E_G^+$, and Section~\ref{sec:optional-dynamic} incrementally maintains the result set under single-edge insertions and deletions.
 
 \subsection{Required Metrics}
 

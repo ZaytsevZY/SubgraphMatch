@@ -1,0 +1,7 @@
+workload,reservation_only,nogood_only,full_gup
+HPRD d4-1,4.89,0.0,4.89
+HPRD d4-10,78.43,0.0,78.43
+Human d4-1,0.88,0.0,0.88
+Human d4-10,0.0,0.0,0.0
+Yeast d4-1,0.0,0.0,0.0
+Yeast d4-10,1.51,0.0,1.51

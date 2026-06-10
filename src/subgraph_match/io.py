@@ -39,21 +39,25 @@ def load_graph_from_graph_format(path: str | Path) -> LabeledGraph:
 
     Format:
     - header: t <num_vertices> <num_edges>
-    - vertex: v <vertex_id> <label_id> <degree>
+    - vertex: v <vertex_id> <label_id> [<degree>]
     - edge:   e <src> <dst> <ignored>
+
+    Blank lines and ``#`` comment lines are skipped, and the per-vertex degree
+    field is optional, so the simple toy ``v/e`` edge lists used by the synthetic
+    demo graphs are also accepted under this loader.
     """
 
     graph = LabeledGraph()
     for raw_line in Path(path).read_text(encoding='utf-8').splitlines():
         line = raw_line.strip()
-        if not line:
+        if not line or line.startswith('#'):
             continue
 
         parts = line.split()
         record_type = parts[0]
         if record_type == 't':
             continue
-        if record_type == 'v' and len(parts) >= 4:
+        if record_type == 'v' and len(parts) >= 3:
             graph.add_vertex(int(parts[1]), parts[2])
         elif record_type == 'e' and len(parts) >= 3:
             graph.add_edge(int(parts[1]), int(parts[2]))

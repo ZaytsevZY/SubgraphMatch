@@ -24,7 +24,9 @@
 
 - Decide whether `results/tables/final_report_main_table.md` should be converted into a LaTeX-native table file.
 - Add at least one dataset summary table to the report.
-- Add at least one ablation figure or simplified visualization if time permits.
+- DONE: ablation figure added (`reports/figures/ablation.pdf`, Fig. `fig:ablation`).
+- DONE: optional-extension figures added (`dynamic_speedup.pdf` `fig:dynamic`, `homomorphism.pdf` `fig:homomorphism`).
+- All result figures ship with plotting source + data CSV under `reports/figures/` (see its README).
 
 ## Compilation and Submission
 
