@@ -32,5 +32,6 @@ data/raw/gup-paper/*
 .DS_Store
 .vscode/
 .idea/
+slides/*.pptx
 
 temp/*
