@@ -13,7 +13,7 @@ from subgraph_match.io import load_graph_from_graph_format
 class GraphFormatIOTest(unittest.TestCase):
     def test_load_graph_from_graph_format(self) -> None:
         graph = load_graph_from_graph_format(
-            ROOT / 'data' / 'raw' / 'gup-paper' / 'extracted' / 'dataset' / 'yeast' / 'query_graph' / 'query_sparse_8_15.graph'
+            ROOT / 'data' / 'sample' / 'graph_format_fixture.graph'
         )
 
         self.assertEqual(graph.num_vertices, 8)

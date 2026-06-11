@@ -25,9 +25,9 @@ In the final experiments, this component is the main source of nonzero paper-fil
 
 \subsection{Nogood Guard}
 
-The current nogood guard is a conservative memoization mechanism and does not reproduce the full GuP nogood machinery. The current version stores a signature of the future subproblem after a candidate extension, including the search depth, the hypothetical used data vertices, and the frontier mapping. We also reduce overhead by activating nogood checks only on query vertices that have already accumulated relevant dead-end information.
+The current nogood guard is a conservative memoization mechanism and does not reproduce the full GuP nogood machinery. The current version stores a signature of the future subproblem after a candidate extension, including the search depth, the hypothetical used data vertices, and the frontier mapping. Under the fixed matching order, these fields determine the remaining completion problem; the current candidate identity is deliberately omitted to allow symmetric histories to share a signature. We reduce overhead by activating signature lookups only on query vertices that have already accumulated relevant dead-end information, while still allowing an inactive vertex to learn its first failed state.
 
-In our reproduction this component remains safe but conservative, which explains why its explicit pruning contribution is limited on the real datasets.
+In our reproduction this component remains workload-sensitive. It contributes little on the six fixed dense-4 workloads, but the broader post-fix validation in Section~\ref{sec:ablation} identifies dense-8 Yeast queries where repeated failing subproblems make nogood reuse effective.
 
 \subsection{Metrics and Experiment Scripts}
 

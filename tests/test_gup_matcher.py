@@ -1,4 +1,5 @@
 from pathlib import Path
+import random
 import sys
 import unittest
 
@@ -36,34 +37,33 @@ def build_reservation_guard_case() -> tuple[LabeledGraph, LabeledGraph]:
 def build_nogood_guard_reuse_case() -> tuple[LabeledGraph, LabeledGraph]:
     data_graph = LabeledGraph()
 
-    # Component 1: two automorphic matches that use the same vertex set {1, 2, 3}.
+    # Component 1: an A-A edge has two automorphic embeddings that use the same
+    # data-vertex set. Once this disconnected component is complete, those two
+    # histories induce the same future subproblem.
     data_graph.add_vertex(1, 'A')
-    data_graph.add_vertex(2, 'B')
-    data_graph.add_vertex(3, 'A')
+    data_graph.add_vertex(2, 'A')
     data_graph.add_edge(1, 2)
-    data_graph.add_edge(2, 3)
-    data_graph.add_edge(1, 3)
 
-    # Component 2: a path of X-labeled vertices that cannot satisfy a triangle query.
-    data_graph.add_vertex(4, 'X')
-    data_graph.add_vertex(5, 'X')
-    data_graph.add_vertex(6, 'X')
+    # Component 2: a 4-cycle cannot satisfy an X-X-X triangle query, but every
+    # X vertex survives the label+degree candidate filter.
+    for vertex in range(3, 7):
+        data_graph.add_vertex(vertex, 'X')
+    data_graph.add_edge(3, 4)
     data_graph.add_edge(4, 5)
     data_graph.add_edge(5, 6)
+    data_graph.add_edge(6, 3)
 
     query_graph = LabeledGraph()
     query_graph.add_vertex(1, 'A')
-    query_graph.add_vertex(2, 'B')
-    query_graph.add_vertex(3, 'A')
+    query_graph.add_vertex(2, 'A')
     query_graph.add_edge(1, 2)
-    query_graph.add_edge(2, 3)
 
+    query_graph.add_vertex(3, 'X')
     query_graph.add_vertex(4, 'X')
     query_graph.add_vertex(5, 'X')
-    query_graph.add_vertex(6, 'X')
+    query_graph.add_edge(3, 4)
     query_graph.add_edge(4, 5)
-    query_graph.add_edge(5, 6)
-    query_graph.add_edge(4, 6)
+    query_graph.add_edge(3, 5)
     return data_graph, query_graph
 
 
@@ -133,7 +133,40 @@ class GUPMatcherTest(unittest.TestCase):
 
         self.assertEqual(baseline.statistics.result_mappings, 0)
         self.assertEqual(gup.statistics.result_mappings, 0)
-        self.assertLessEqual(gup.statistics.partial_mappings, baseline.statistics.partial_mappings)
+        self.assertLess(gup.statistics.partial_mappings, baseline.statistics.partial_mappings)
+        self.assertGreater(gup.statistics.guard_checks_total, 0)
+        self.assertGreater(gup.statistics.prune_reasons.get('nogood_guard', 0), 0)
+
+    def test_nogood_matches_baseline_on_deterministic_random_graphs(self) -> None:
+        rng = random.Random(20260610)
+
+        for _ in range(40):
+            data_graph = LabeledGraph()
+            query_graph = LabeledGraph()
+
+            for vertex in range(7):
+                data_graph.add_vertex(vertex, rng.choice(('A', 'B')))
+            for source in range(7):
+                for target in range(source + 1, 7):
+                    if rng.random() < 0.35:
+                        data_graph.add_edge(source, target)
+
+            for vertex in range(4):
+                query_graph.add_vertex(vertex, rng.choice(('A', 'B')))
+            for source in range(4):
+                for target in range(source + 1, 4):
+                    if rng.random() < 0.45:
+                        query_graph.add_edge(source, target)
+
+            baseline = BacktrackingMatcher().match(query_graph, data_graph)
+            nogood = GUPMatcher(
+                GUPConfig(enable_reservation_guard=False, enable_nogood_guard=True)
+            ).match(query_graph, data_graph)
+
+            self.assertEqual(
+                normalize_mappings(nogood.mappings),
+                normalize_mappings(baseline.mappings),
+            )
 
 
 if __name__ == '__main__':

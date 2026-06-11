@@ -69,6 +69,9 @@ class GUPMatcher:
             return
 
         query_vertex = vertex_order[depth]
+        learning_guards = [
+            guard for guard in self.guards if getattr(guard, 'learns_from_dead_ends', False)
+        ]
         for data_vertex in candidates.get(query_vertex, []):
             if not self._is_feasible(
                 query_vertex=query_vertex,
@@ -112,8 +115,19 @@ class GUPMatcher:
             )
             state.unassign(query_vertex)
 
-            if context is not None and statistics.result_mappings == before_results:
-                self._record_dead_end(context)
+            if learning_guards and statistics.result_mappings == before_results:
+                if context is None:
+                    context = GuardContext(
+                        query_vertex=query_vertex,
+                        data_vertex=data_vertex,
+                        depth=depth,
+                        query_graph=query_graph,
+                        data_graph=data_graph,
+                        candidates=candidates,
+                        vertex_order=vertex_order,
+                        state=state,
+                    )
+                self._record_dead_end(context, learning_guards)
 
     def _is_feasible(
         self,
@@ -154,6 +168,6 @@ class GUPMatcher:
             return bool(is_active(query_vertex))
         return True
 
-    def _record_dead_end(self, context: GuardContext) -> None:
-        for guard in self.guards:
+    def _record_dead_end(self, context: GuardContext, guards: List[SearchGuard]) -> None:
+        for guard in guards:
             guard.record_dead_end(context)

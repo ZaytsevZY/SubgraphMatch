@@ -53,3 +53,33 @@ First, the \textbf{reservation guard is the dominant effective filtering strateg
 Second, the \textbf{nogood guard remains conservative in pruning power}. In the present implementation it rarely contributes explicit nogood-based pruning on the successful real workloads, which is why its partial-mapping delta is usually zero. Even so, after reducing unnecessary guard checks, the nogood-only variant is not always slower than the baseline; on some lighter workloads it is mildly beneficial in runtime even without visible search-space reduction.
 
 Third, the \textbf{combination of both guards is workload-dependent}. On HPRD and on \texttt{Human d4-1}, full GUP inherits the benefit of reservation-based pruning and outperforms the baseline. On the heavier \texttt{Human d4-10}, however, the prototype still pays more guard overhead than it saves. Overall, the ablation study shows that reservation-based pruning already contributes measurable value, whereas nogood-based pruning still requires a more faithful implementation to demonstrate stable gains.
+
+\subsection{Post-fix Nogood Validation on Broader Queries}
+
+After the original dense-4 ablation, we identified and fixed a cold-start issue in the Nogood implementation: signature lookup was enabled only after a query vertex became active, but the same condition previously prevented the first failed state from being learned. We also removed redundant current-candidate fields from the signature. Under the fixed matching order, the future subproblem is determined by the search depth, used data-vertex set, and frontier mapping. Correctness is checked by the full test suite and by deterministic random differential tests against the baseline.
+
+We then scanned a broader set of real Yeast dense-8 queries and selected two completed queries with nonzero Nogood hits for repeated validation. Table~\ref{tab:nogood-postfix} reports medians after warm-up with rotated execution order. This is a targeted mechanism-validation experiment rather than an unbiased replacement for the six fixed dense-4 workloads; the selection criterion is disclosed because it favors workloads where Nogood is applicable.
+
+\begin{table*}[t]
+  \caption{Post-fix validation on real Yeast dense-8 queries. Runtime values are medians of repeated runs. All variants return identical complete result sets.}
+  \label{tab:nogood-postfix}
+  \centering
+  \small
+  \begin{tabular}{llrrrrrr}
+    \toprule
+    Query & Variant & Results & Partial mappings & Reservation prunes & Nogood prunes & Median (ms) & Speedup \\
+    \midrule
+    \texttt{d8-103} & Baseline & 38 & 463 & 0 & 0 & 59.75 & 1.00$\times$ \\
+    \texttt{d8-103} & Reservation only & 38 & 238 & 221 & 0 & 28.89 & 2.07$\times$ \\
+    \texttt{d8-103} & Nogood only & 38 & 290 & 0 & 173 & 37.24 & 1.60$\times$ \\
+    \texttt{d8-103} & Full GUP & 38 & 168 & 221 & 70 & 19.40 & 3.08$\times$ \\
+    \midrule
+    \texttt{d8-132} & Baseline & 548 & 13461 & 0 & 0 & 3217.62 & 1.00$\times$ \\
+    \texttt{d8-132} & Reservation only & 548 & 13452 & 5 & 0 & 3258.45 & 0.99$\times$ \\
+    \texttt{d8-132} & Nogood only & 548 & 5932 & 0 & 2818 & 1418.07 & 2.27$\times$ \\
+    \texttt{d8-132} & Full GUP & 548 & 5924 & 5 & 2817 & 1412.19 & 2.28$\times$ \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+The two queries expose complementary behavior. On \texttt{d8-103}, both guards contribute and the full variant achieves the best result. On \texttt{d8-132}, Reservation is almost inactive, while Nogood removes about 56\% of the partial mappings and more than doubles enumeration speed. Together with the fixed dense-4 results, this supports a narrower conclusion than ``one guard always dominates'': Reservation is robust on the original selected workloads, whereas Nogood becomes valuable when many search histories induce the same failing future subproblem.

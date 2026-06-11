@@ -8,20 +8,22 @@ class NogoodGuard:
 
     The guard stores dead-end signatures for the *future subproblem* after a
     candidate extension is applied. The signature keeps:
-    - the current search depth / extension identity,
+    - the current search depth,
     - the used data-vertex set after the extension, and
     - the mapped frontier vertices that still constrain the remaining search.
 
-    This is more reusable than an exact-prefix memo while remaining safe for the
-    current fixed-order DFS: if two prefixes induce the same frontier mapping and
-    the same used-vertex set, the remaining completion problem is identical.
+    The current query vertex and candidate are intentionally omitted: under the
+    fixed matching order they are already represented by the depth, used set,
+    and frontier mapping. If two prefixes induce the same values for those
+    fields, the remaining completion problem is identical.
     """
 
     name = 'nogood_guard'
+    learns_from_dead_ends = True
 
     def __init__(self) -> None:
         self._dead_end_signatures: set[
-            tuple[int, int, int, tuple[int, ...], tuple[tuple[int, int], ...]]
+            tuple[int, tuple[int, ...], tuple[tuple[int, int], ...]]
         ] = set()
         self._active_query_vertices: set[int] = set()
 
@@ -40,7 +42,7 @@ class NogoodGuard:
     def _build_signature(
         self,
         context: GuardContext,
-    ) -> tuple[int, int, int, tuple[int, ...], tuple[tuple[int, int], ...]]:
+    ) -> tuple[int, tuple[int, ...], tuple[tuple[int, int], ...]]:
         hypothetical_mapping = dict(context.state.query_to_data)
         hypothetical_mapping[context.query_vertex] = context.data_vertex
 
@@ -54,8 +56,6 @@ class NogoodGuard:
 
         return (
             context.depth,
-            context.query_vertex,
-            context.data_vertex,
             hypothetical_used_vertices,
             tuple(sorted(frontier_mapping)),
         )
